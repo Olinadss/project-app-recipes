@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { setLocalStorage } from '../utils/localStorage';
 
 export default function Login() {
@@ -32,14 +33,16 @@ export default function Login() {
         value={ password }
         onChange={ ({ target: { value } }) => setPassword(value) }
       />
-      <button
-        data-testid="login-submit-btn"
-        type="button"
-        disabled={ !validEmailAndPassword() }
-        onClick={ () => sendToLocalStorage() }
-      >
-        Entrar
-      </button>
+      <Link to="/comidas">
+        <button
+          data-testid="login-submit-btn"
+          type="button"
+          disabled={ !validEmailAndPassword() }
+          onClick={ () => sendToLocalStorage() }
+        >
+          Entrar
+        </button>
+      </Link>
     </div>
   );
 }
