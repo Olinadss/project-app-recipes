@@ -67,7 +67,7 @@ describe('5 - Desenvolva a tela de maneira que o formulário só seja válido ap
   });
 });
 
-describe.skip('6 - Salve 2 tokens no localStorage após a submissão, identificados pelas chaves mealsToken e cocktailsToken', () => {
+describe('6 - Salve 2 tokens no localStorage após a submissão, identificados pelas chaves mealsToken e cocktailsToken', () => {
   it('Após a submissão mealsToken e cocktailsToken devem estar salvos em localStorage', () => {
     cy.visit('http://localhost:3000/', {
       onBeforeLoad(win) {
@@ -94,7 +94,7 @@ describe.skip('6 - Salve 2 tokens no localStorage após a submissão, identifica
   });
 });
 
-describe.skip('7 - Salve o e-mail da pessoa usuária no localStorage na chave user após a submissão', () => {
+describe('7 - Salve o e-mail da pessoa usuária no localStorage na chave user após a submissão', () => {
   it('Após a submissão a chave user deve estar salva em localStorage', () => {
     cy.visit('http://localhost:3000/', {
       onBeforeLoad(win) {
@@ -119,7 +119,7 @@ describe.skip('7 - Salve o e-mail da pessoa usuária no localStorage na chave us
   });
 });
 
-describe.skip('8 - Redirecione a pessoa usuária para a tela principal de receitas de comidas após a submissão e validação com sucesso do login', () => {
+describe('8 - Redirecione a pessoa usuária para a tela principal de receitas de comidas após a submissão e validação com sucesso do login', () => {
   it('A rota muda para a tela principal de receitas de comidas', () => {
     cy.visit('http://localhost:3000/', {
       onBeforeLoad(win) {

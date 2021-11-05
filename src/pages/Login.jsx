@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { setLocalStorage } from '../utils/localStorage';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -9,6 +10,12 @@ export default function Login() {
     const MIN_PASSWORD_LENGTH = 6;
 
     return emailRegex.test(email) && password.length > MIN_PASSWORD_LENGTH;
+  }
+
+  function sendToLocalStorage() {
+    setLocalStorage('mealsToken', 1);
+    setLocalStorage('cocktailsToken', 1);
+    setLocalStorage('user', { email });
   }
 
   return (
@@ -29,9 +36,9 @@ export default function Login() {
         data-testid="login-submit-btn"
         type="button"
         disabled={ !validEmailAndPassword() }
+        onClick={ () => sendToLocalStorage() }
       >
         Entrar
-
       </button>
     </div>
   );
