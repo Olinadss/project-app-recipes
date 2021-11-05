@@ -9,7 +9,7 @@ function App() {
     <div className="app">
       <Switch>
         <Route exact path="/" component={ Login } />
-        <Route path="/comidas" />
+        {/* <Route path="/comidas" />
         <Route path="/bebidas" />
         <Route path={ `/comidas/${id - da - receita}` } />
         <Route path={ `/bebidas/${id - da - receita}` } />
@@ -23,7 +23,7 @@ function App() {
         <Route path="/explorar/comidas/area" />
         <Route path="/perfil" />
         <Route path="/receitas-feitas" />
-        <Route path="/receitas-favoritas" />
+        <Route path="/receitas-favoritas" /> */}
       </Switch>
     </div>
   );
