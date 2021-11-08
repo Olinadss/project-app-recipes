@@ -1,7 +1,7 @@
-<<<<<<< HEAD
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
+import SearchBar from './SearchBar';
 import profileIcon from '../images/profileIcon.svg';
 import searchIcon from '../images/searchIcon.svg';
 
@@ -20,14 +20,17 @@ const Header = (props) => {
       {search
         && (
           <button
+            className="search-btn"
             onClick={ () => setSearchBar(!searchBar) }
             type="button"
           >
             <img src={ searchIcon } data-testid="search-top-btn" alt="" />
           </button>)}
-      { searchBar && <input type="text" data-testid="search-input" /> }
-
+      <div className="searchbar">
+        { searchBar && <SearchBar /> }
+      </div>
     </header>
+
   );
 };
 
@@ -39,18 +42,5 @@ Header.propTypes = {
 Header.defaultProps = {
   search: true,
 };
-=======
-import React from 'react';
-
-function Header() {
-  return (
-    <div>
-      <h1 data-testid="profile-top-btn">btn</h1>
-      <h2 data-testid="page-title">titulo</h2>
-      <h3 data-testid="search-top-btn">Search top</h3>
-    </div>
-  );
-}
->>>>>>> 7c8644b5a3463659fad768426b67991f1e80ef57
 
 export default Header;

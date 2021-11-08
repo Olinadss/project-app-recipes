@@ -105,8 +105,61 @@
   align-items: center;
   background: #0fa36b;
   display: flex;
-  flex-direction: row;
+  flex-flow: row wrap;
   height: 10%;
-  justify-content: space-evenly;
+  justify-content: space-between;
   width: 100%;
+
+}
+
+.search-btn {
+  background: #0fa36b;
+  border: none;
+  border-radius: 50%;
+  color: white;
+  cursor: pointer;
+  font-size: 1.5em;
+  height: 40px;
+  margin: 10px;
+  width: 40px;
+}
+
+.search-form {
+  align-items: center;
+  display: flex;
+  flex-flow: column;
+  justify-content: center;
+  margin: auto;
+}
+
+.search-div {
+  align-items: center;
+  display: flex;
+  flex-direction: row wrap;
+  height: 100%;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.searchbar {
+  width: 100%;
+}
+
+@media ( max-width : 768px ) {
+
+  .login-container {
+    width: 80%;
+  }
+
+  .header {
+    height: 10%;
+  }
+
+  .search-form {
+    align-items: center;
+    display: flex;
+    flex-flow: column;
+    justify-content: center;
+    margin: auto;
+  }
 }
