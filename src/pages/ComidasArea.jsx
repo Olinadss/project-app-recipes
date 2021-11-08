@@ -1,9 +1,10 @@
 import React from 'react';
+import { Header } from '../components';
 
 export default function ComidasArea() {
   return (
     <div>
-      Comidas Area
+      <Header title="Explorar Origem" />
     </div>
   );
 }
