@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import ReceitasProntas from '../components/receitas-prontas/ReceitasProntas';
 
 export default function ReceitasFeitas() {

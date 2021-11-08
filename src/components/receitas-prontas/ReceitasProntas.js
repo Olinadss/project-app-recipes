@@ -6,7 +6,7 @@ export default function ReceitasProntas({ receitasProntas }) {
     <div>
       { receitasProntas.map((item, index) => (
         <>
-          <img src="" alt="" data-testid={ `${index}-horizontal-image` } />
+          <div data-testid={ `${index}-horizontal-image` }>{item.image}</div>
           <h2 data-testid={ `${index}-horizontal-top-text` }>{item.category}</h2>
           <h2 data-testid={ `${index}-horizontal-name` }>{item.name}</h2>
           <h2 data-testid={ `${index}-horizontal-done-date` }>{item.doneDate}</h2>
