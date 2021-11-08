@@ -20,38 +20,40 @@ export default function Login() {
   }
 
   return (
-    <div className="login-container">
-      <h1 className="login-label">Login</h1>
-      <input
-        className="form-control"
-        data-testid="email-input"
-        type="email"
-        name="email"
-        id="email"
-        placeholder="Email"
-        value={ email }
-        onChange={ ({ target: { value } }) => setEmail(value) }
-      />
-      <input
-        className="form-control"
-        data-testid="password-input"
-        placeholder="Senha"
-        type="password"
-        value={ password }
-        onChange={ ({ target: { value } }) => setPassword(value) }
-      />
+    <div className="login">
+      <div className="login-container">
+        <h1 className="login-label">Login</h1>
+        <input
+          className="form-control"
+          data-testid="email-input"
+          type="email"
+          name="email"
+          id="email"
+          placeholder="Email"
+          value={ email }
+          onChange={ ({ target: { value } }) => setEmail(value) }
+        />
+        <input
+          className="form-control"
+          data-testid="password-input"
+          placeholder="Senha"
+          type="password"
+          value={ password }
+          onChange={ ({ target: { value } }) => setPassword(value) }
+        />
 
-      <Link to="/comidas">
-        <button
-          className="btn btn-success"
-          data-testid="login-submit-btn"
-          type="button"
-          disabled={ !validEmailAndPassword() }
-          onClick={ () => sendToLocalStorage() }
-        >
-          Entrar
-        </button>
-      </Link>
+        <Link to="/comidas">
+          <button
+            className="btn btn-success"
+            data-testid="login-submit-btn"
+            type="button"
+            disabled={ !validEmailAndPassword() }
+            onClick={ () => sendToLocalStorage() }
+          >
+            Entrar
+          </button>
+        </Link>
+      </div>
     </div>
   );
 }
