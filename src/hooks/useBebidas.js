@@ -9,7 +9,7 @@ export function BebidasProvider({ children }) {
 
   useEffect(() => {
     async function fetchAPI() {
-      const response = await fetch(url);
+      const response = await fetch(urlBebidas);
       const data = await response.json();
       setBebidas(data.drinks);
     }
