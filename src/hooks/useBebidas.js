@@ -25,7 +25,7 @@ export function BebidasProvider({ children }) {
 }
 
 BebidasProvider.propTypes = {
-  children: PropTypes.arrayOf(PropTypes.object).isRequired,
+  children: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 export default function useBebidas() {

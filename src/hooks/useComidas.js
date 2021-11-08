@@ -17,6 +17,8 @@ export function ComidasProvider({ children }) {
     fetchAPI();
   }, [urlComidas]);
 
+  console.log(children);
+
   return (
     <ComidasContext.Provider value={ { comidas, setUrlComidas } }>
       {children}
@@ -25,7 +27,7 @@ export function ComidasProvider({ children }) {
 }
 
 ComidasProvider.propTypes = {
-  children: PropTypes.arrayOf(PropTypes.object).isRequired,
+  children: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 export default function useComidas() {
