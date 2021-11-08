@@ -5,7 +5,7 @@ import CategoriesButtons from '../components/CategoriesButtons';
 import useComidas from '../hooks/useComidas';
 
 export default function Recipes() {
-  const { comidas } = useComidas();
+  const { comidas, setUrlComidas } = useComidas();
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
@@ -25,10 +25,17 @@ export default function Recipes() {
     return acc;
   }, []);
 
+  function handleClick(category) {
+    setUrlComidas(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`);
+  }
+
   return (
     <div>
       <Header title="Comidas" />
-      <CategoriesButtons categories={ categories } />
+      <CategoriesButtons
+        categories={ categories }
+        handleClick={ handleClick }
+      />
       <div className="container-md">
         {first12Meals.map((meal, index) => (
           <CardTelaPrincipal

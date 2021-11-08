@@ -5,7 +5,7 @@ import CategoriesButtons from '../components/CategoriesButtons';
 import useBebidas from '../hooks/useBebidas';
 
 export default function Bebidas() {
-  const { bebidas } = useBebidas();
+  const { bebidas, setUrlBebidas } = useBebidas();
   const [categories, setCategories] = useState([]);
 
   useEffect(() => {
@@ -25,10 +25,17 @@ export default function Bebidas() {
     return acc;
   }, []);
 
+  function handleClick(category) {
+    setUrlBebidas(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`);
+  }
+
   return (
     <div>
       <Header title="Bebidas" />
-      <CategoriesButtons categories={ categories } />
+      <CategoriesButtons
+        categories={ categories }
+        handleClick={ handleClick }
+      />
       <div className="container-md">
         {first12Drinks.map((meal, index) => (
           <CardTelaPrincipal

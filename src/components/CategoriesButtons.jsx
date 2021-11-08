@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-export default function CategoriesButtons({ categories }) {
+export default function CategoriesButtons({ categories, handleClick }) {
   const first5Categories = categories.reduce((acc, comida, index) => {
     const NUMBER = 5;
     if (index < NUMBER) acc = [...acc, comida];
@@ -15,6 +15,7 @@ export default function CategoriesButtons({ categories }) {
           data-testid={ `${category}-category-filter` }
           type="button"
           key={ category }
+          onClick={ () => handleClick(category) }
         >
           {category}
         </button>
@@ -25,4 +26,5 @@ export default function CategoriesButtons({ categories }) {
 
 CategoriesButtons.propTypes = {
   categories: PropTypes.arrayOf(PropTypes.string).isRequired,
+  handleClick: PropTypes.func.isRequired,
 };
