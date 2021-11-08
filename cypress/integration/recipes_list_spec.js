@@ -73,7 +73,7 @@ describe('25 - Implemente os elementos da tela principal de receitas respeitando
   });
 });
 
-describe.skip('26 - Carregue as 12 primeiras receitas de comidas ou bebidas, uma em cada card', () => {
+describe('26 - Carregue as 12 primeiras receitas de comidas ou bebidas, uma em cada card', () => {
   it('Caso as receitas sejam de comida, deve-se carregar as 12 primeiras receitas', () => {
     cy.visit('http://localhost:3000/comidas', {
       onBeforeLoad(win) {
@@ -95,7 +95,7 @@ describe.skip('26 - Carregue as 12 primeiras receitas de comidas ou bebidas, uma
   });
 });
 
-describe.skip('27 - Implemente os botões de categoria para serem utilizados como filtro', () => {
+describe('27 - Implemente os botões de categoria para serem utilizados como filtro', () => {
   it('Caso as receitas sejam de comida, deve-se exibir as 5 primeiras categorias de comida', () => {
     cy.visit('http://localhost:3000/comidas', {
       onBeforeLoad(win) {

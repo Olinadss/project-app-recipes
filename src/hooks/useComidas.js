@@ -17,8 +17,6 @@ export function ComidasProvider({ children }) {
     fetchAPI();
   }, [urlComidas]);
 
-  console.log(children);
-
   return (
     <ComidasContext.Provider value={ { comidas, setUrlComidas } }>
       {children}
