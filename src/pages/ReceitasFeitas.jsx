@@ -1,9 +1,10 @@
 import React from 'react';
+import { Header } from '../components';
 
 export default function ReceitasFeitas() {
   return (
     <div>
-      Receitas Feitas
+      <Header title="Receitas Feitas" search={ false } />
     </div>
   );
 }

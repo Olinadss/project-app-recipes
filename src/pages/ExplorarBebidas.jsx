@@ -1,9 +1,10 @@
 import React from 'react';
+import { Header } from '../components';
 
 export default function ExplorarBebidas() {
   return (
     <div>
-      Explorar Bebidas
+      <Header title="Explorar Bebidas" search={ false } />
     </div>
   );
 }

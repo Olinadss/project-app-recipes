@@ -1,9 +1,10 @@
 import React from 'react';
+import { Header } from '../components';
 
-export default function Perfil() {
-  return (
-    <div>
-      Perfil
-    </div>
-  );
-}
+const Perfil = () => (
+  <div>
+    <Header title="Perfil" search={ false } />
+  </div>
+);
+
+export default Perfil;
