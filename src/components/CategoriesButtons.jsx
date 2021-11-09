@@ -13,7 +13,6 @@ export default function CategoriesButtons({
   }, []);
 
   async function toogleClicked(category, index) {
-    console.log(isClicked[index]);
     if (isClicked[index]) {
       handleClickIsClicked();
     } else {
@@ -32,6 +31,14 @@ export default function CategoriesButtons({
 
   return (
     <div>
+      <button
+        data-testid="All-category-filter"
+        type="button"
+        key="All"
+        onClick={ () => handleClickIsClicked() }
+      >
+        All
+      </button>
       {first5Categories.map((category, index) => (
         <button
           data-testid={ `${category}-category-filter` }
