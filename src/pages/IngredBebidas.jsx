@@ -1,9 +1,10 @@
 import React from 'react';
-import Footer from '../components/Footer';
+import { Header, Footer } from '../components';
 
 export default function IngredBebidas() {
   return (
     <div>
+      <Header title="Explorar Ingredientes" search={ false } />
       Ingred Bebidas
       <Footer />
     </div>
