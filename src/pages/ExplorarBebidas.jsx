@@ -5,7 +5,7 @@ export default function ExplorarBebidas() {
   return (
     <div>
       <Header title="Explorar Bebidas" search={ false } />
-      <ContainerExplorar type="bebida" />
+      <ContainerExplorar type="bebidas" />
       <Footer />
     </div>
   );

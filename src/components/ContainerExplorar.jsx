@@ -1,16 +1,24 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import { useHistory } from 'react-router-dom';
 
 export default function ContainerExplorar({ type }) {
+  const history = useHistory();
+
+  function handleClick(route) {
+    history.push(route);
+  }
+
   return (
     <div>
       <button
         data-testid="explore-by-ingredient"
         type="button"
+        onClick={ () => handleClick(`/explorar/${type}/ingredientes`) }
       >
         Por Ingredientes
       </button>
-      {type === 'comida' && (
+      {type === 'comidas' && (
         <button
           data-testid="explore-by-area"
           type="button"
