@@ -1,12 +1,15 @@
 import React from 'react';
 import { Header, Footer } from '../components';
+import { getLocalStorage } from '../utils/localStorage';
 
 export default function Perfil() {
+  const { email } = getLocalStorage('user');
+
   return (
     <div>
       <Header title="Perfil" search={ false } />
       <section>
-        <p data-testid="profile-email">email@gmail.com</p>
+        <p data-testid="profile-email">{email}</p>
         <button
           type="button"
           data-testid="profile-done-btn"
