@@ -9,7 +9,6 @@ import GlobalStorage from './context/GlobalStorage';
 function App() {
   return (
     <div className="app">
-
       <GlobalStorage>
         <ComidasProvider>
           <BebidasProvider>

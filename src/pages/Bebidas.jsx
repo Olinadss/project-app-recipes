@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { Header, RecipeCard } from '../components';
+import { Header, RecipeCard, Footer } from '../components';
 import CardTelaPrincipal from '../components/CardTelaPrincipal';
 import CategoriesButtons from '../components/CategoriesButtons';
 import useBebidas from '../hooks/useBebidas';
@@ -82,6 +82,7 @@ export default function Bebidas() {
           </Link>
         ))}
       </div>
+      <Footer />
     </div>
   );
 }

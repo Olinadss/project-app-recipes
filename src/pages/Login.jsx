@@ -19,14 +19,6 @@ export default function Login() {
     setLocalStorage('user', { email });
   }
 
-  const user = {
-    email,
-  };
-
-  localStorage.mealsToken = JSON.stringify(1);
-  localStorage.cocktailsToken = JSON.stringify(1);
-  localStorage.user = JSON.stringify(user);
-
   return (
     <div className="login">
       <aside>

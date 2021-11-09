@@ -1,10 +1,12 @@
 import React from 'react';
-import { Header } from '../components';
+import { Header, Footer } from '../components';
 
-const Perfil = () => (
-  <div>
-    <Header title="Perfil" search={ false } />
-  </div>
-);
-
-export default Perfil;
+export default function Perfil() {
+  return (
+    <div>
+      <Header title="Perfil" search={ false } />
+      Perfil
+      <Footer />
+    </div>
+  );
+}
