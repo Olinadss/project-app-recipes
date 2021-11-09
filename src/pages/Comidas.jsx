@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Header } from '../components';
 import CardTelaPrincipal from '../components/CardTelaPrincipal';
 import CategoriesButtons from '../components/CategoriesButtons';
@@ -15,9 +16,9 @@ export default function Recipes() {
       const data = await response.json();
       setCategories(data.meals.map((category) => category.strCategory));
     }
-
+    setUrlComidas('https://www.themealdb.com/api/json/v1/1/search.php?s=');
     fetchCategories();
-  }, []);
+  }, [setUrlComidas]);
 
   const first12Meals = comidas.reduce((acc, comida, index) => {
     const NUMBER = 12;
@@ -33,6 +34,10 @@ export default function Recipes() {
     setUrlComidas('https://www.themealdb.com/api/json/v1/1/search.php?s=');
   }
 
+  function cardHandleClick(id) {
+    setUrlComidas(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
+  }
+
   return (
     <div>
       <Header title="Comidas" />
@@ -43,12 +48,17 @@ export default function Recipes() {
       />
       <div className="container-md">
         {first12Meals.map((meal, index) => (
-          <CardTelaPrincipal
+          <Link
             key={ meal.idMeal }
-            index={ index }
-            thumb={ meal.strMealThumb }
-            name={ meal.strMeal }
-          />
+            to={ `/comidas/${meal.idMeal}` }
+            onClick={ () => cardHandleClick(meal.idMeal) }
+          >
+            <CardTelaPrincipal
+              index={ index }
+              thumb={ meal.strMealThumb }
+              name={ meal.strMeal }
+            />
+          </Link>
         ))}
       </div>
     </div>

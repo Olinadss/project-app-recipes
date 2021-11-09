@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Header } from '../components';
 import CardTelaPrincipal from '../components/CardTelaPrincipal';
 import CategoriesButtons from '../components/CategoriesButtons';
@@ -16,8 +17,9 @@ export default function Bebidas() {
       setCategories(data.drinks.map((category) => category.strCategory));
     }
 
+    setUrlBebidas('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
     fetchCategories();
-  }, []);
+  }, [setUrlBebidas]);
 
   const first12Drinks = bebidas.reduce((acc, comida, index) => {
     const NUMBER = 12;
@@ -33,6 +35,10 @@ export default function Bebidas() {
     setUrlBebidas('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
   }
 
+  function cardHandleClick(id) {
+    setUrlBebidas(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`);
+  }
+
   return (
     <div>
       <Header title="Bebidas" />
@@ -43,12 +49,18 @@ export default function Bebidas() {
       />
       <div className="container-md">
         {first12Drinks.map((meal, index) => (
-          <CardTelaPrincipal
+          <Link
             key={ meal.idDrink }
-            index={ index }
-            thumb={ meal.strDrinkThumb }
-            name={ meal.strDrink }
-          />
+            to={ `/bebidas/${meal.idDrink}` }
+            onClick={ () => cardHandleClick(meal.idDrink) }
+          >
+            <CardTelaPrincipal
+              key={ meal.idDrink }
+              index={ index }
+              thumb={ meal.strDrinkThumb }
+              name={ meal.strDrink }
+            />
+          </Link>
         ))}
       </div>
     </div>
