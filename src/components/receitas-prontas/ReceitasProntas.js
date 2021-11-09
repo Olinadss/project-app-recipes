@@ -16,7 +16,7 @@ export default function ReceitasProntas({ receitasProntas }) {
           >
             Compartilhar
           </button>
-          <p data-testid={ `${index}-${item.tags}-horizontal-tag` }>{item.tags}</p>
+          <p data-testid={ `${index}-${item.tags[index]}-horizontal-tag` }>{item.tags}</p>
         </>
       ))}
     </div>
