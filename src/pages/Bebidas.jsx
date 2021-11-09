@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { Header, RecipeCard, Footer } from '../components';
-import CardTelaPrincipal from '../components/CardTelaPrincipal';
-import CategoriesButtons from '../components/CategoriesButtons';
+import {
+  Header, RecipeCard, Footer, CardTelaPrincipal, CategoriesButtons,
+} from '../components';
 import useBebidas from '../hooks/useBebidas';
 import { GlobalContext } from '../context/GlobalStorage';
 
