@@ -4,6 +4,7 @@ import Ingredients from '../components/Ingredients';
 import HeaderRecipe from '../components/HeaderRecipe';
 import getIngredientsWithMeasures from '../utils/ingredients';
 import Instructions from '../components/Instructions';
+import { getLocalStorage, setLocalStorage } from '../utils/localStorage';
 
 export default function BebidaProgress() {
   const [ingredientsInfo, setIngredientsInfo] = useState({});
@@ -14,9 +15,34 @@ export default function BebidaProgress() {
     async function fetchFilteredMeal() {
       const response = await fetch(`https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${idCocktails}`);
       const data = await response.json();
-      console.log(data);
-      setIngredientsInfo(data.drinks[0]);
-      setIngredientsAndMeasures(getIngredientsWithMeasures(data.drinks[0]));
+      const drink = data.drinks[0];
+
+      setIngredientsInfo(drink);
+      setIngredientsAndMeasures(getIngredientsWithMeasures(drink));
+
+      const ingredientList = Object.keys(getIngredientsWithMeasures(drink));
+
+      const inProgressRecipes = getLocalStorage('inProgressRecipes');
+
+      let drinksToLocalStorage = null;
+
+      if (inProgressRecipes) {
+        drinksToLocalStorage = {
+          cocktails: {
+            ...inProgressRecipes.cocktails, [idCocktails]: ingredientList,
+          },
+        };
+      } else {
+        drinksToLocalStorage = {
+          cocktails: {
+            [idCocktails]: ingredientList,
+          },
+        };
+      }
+
+      setLocalStorage(
+        'inProgressRecipes', { ...inProgressRecipes, ...drinksToLocalStorage },
+      );
     }
     fetchFilteredMeal();
   }, []);
