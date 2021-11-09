@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import shareIcon from '../../images/shareIcon.svg';
 
 export default function ReceitasProntas({ receitasProntas }) {
   return (
@@ -11,14 +12,19 @@ export default function ReceitasProntas({ receitasProntas }) {
             alt={ item.name }
             data-testid={ `${index}-horizontal-image` }
           />
-          <h2 data-testid={ `${index}-horizontal-top-text` }>{item.category}</h2>
           <h2 data-testid={ `${index}-horizontal-name` }>{item.name}</h2>
-          <h2 data-testid={ `${index}-horizontal-done-date` }>{item.doneDate}</h2>
-          <button
-            data-testid={ `${index}-horizontal-share-btn` }
-            type="button"
+          <h2
+            data-testid={ `${index}-horizontal-top-text` }
           >
-            Compartilhar
+            {`${item.area} - ${item.category}`}
+          </h2>
+          <h2 data-testid={ `${index}-horizontal-done-date` }>{item.doneDate}</h2>
+          <button type="button">
+            <img
+              data-testid={ `${index}-horizontal-share-btn` }
+              src={ shareIcon }
+              alt="compartilhar"
+            />
           </button>
           {item.tags.map((tagsName, indexTag) => (
             <p
