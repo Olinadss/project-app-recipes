@@ -9,7 +9,7 @@ export function BebidasProvider({ children }) {
 
   useEffect(() => {
     async function fetchAPI() {
-      const response = await fetch(url);
+      const response = await fetch(urlBebidas);
       const data = await response.json();
       setBebidas(data.drinks);
     }
@@ -25,7 +25,7 @@ export function BebidasProvider({ children }) {
 }
 
 BebidasProvider.propTypes = {
-  children: PropTypes.arrayOf(PropTypes.object).isRequired,
+  children: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 export default function useBebidas() {

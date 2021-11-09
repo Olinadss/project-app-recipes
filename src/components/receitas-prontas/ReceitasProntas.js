@@ -6,7 +6,11 @@ export default function ReceitasProntas({ receitasProntas }) {
     <div>
       { receitasProntas.map((item, index) => (
         <>
-          <div data-testid={ `${index}-horizontal-image` }>{item.image}</div>
+          <img
+            src={ item.image }
+            alt={ item.name }
+            data-testid={ `${index}-horizontal-image` }
+          />
           <h2 data-testid={ `${index}-horizontal-top-text` }>{item.category}</h2>
           <h2 data-testid={ `${index}-horizontal-name` }>{item.name}</h2>
           <h2 data-testid={ `${index}-horizontal-done-date` }>{item.doneDate}</h2>
@@ -16,7 +20,14 @@ export default function ReceitasProntas({ receitasProntas }) {
           >
             Compartilhar
           </button>
-          <p data-testid={ `${index}-${item.tags[index]}-horizontal-tag` }>{item.tags}</p>
+          {item.tags.map((tagsName, indexTag) => (
+            <p
+              data-testid={ `${index}-${item.tags[indexTag]}-horizontal-tag` }
+              key={ tagsName }
+            >
+              {tagsName}
+            </p>
+          ))}
         </>
       ))}
     </div>

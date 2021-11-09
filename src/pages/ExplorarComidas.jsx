@@ -1,9 +1,10 @@
 import React from 'react';
-import Footer from '../components/Footer';
+import { Header, Footer } from '../components';
 
 export default function ExplorarComidas() {
   return (
     <div>
+      <Header title="Explorar Comidas" search={ false } />
       Explorar Comidas
       <Footer />
     </div>
