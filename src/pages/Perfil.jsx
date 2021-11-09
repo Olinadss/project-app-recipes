@@ -30,7 +30,16 @@ export default function Perfil() {
         >
           Receitas Favoritas
         </button>
-        <button type="button" data-testid="profile-logout-btn">Sair</button>
+        <button
+          type="button"
+          data-testid="profile-logout-btn"
+          onClick={ () => {
+            localStorage.clear();
+            handleClick('/');
+          } }
+        >
+          Sair
+        </button>
       </section>
       <Footer />
     </div>
