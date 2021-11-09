@@ -28,10 +28,12 @@ export default function Recipes() {
   useEffect(() => {
     if (GLOBAL.responseFetch !== null) {
       const { meals } = GLOBAL.responseFetch;
-      const twelve = 12;
-      setFoods(meals.slice(0, twelve));
-      if (meals.length > 1) {
-        setIsList(true);
+      if (meals !== null) {
+        const twelve = 12;
+        setFoods(meals.slice(0, twelve));
+        if (meals.length > 1) {
+          setIsList(true);
+        }
       }
     }
   }, [GLOBAL]);

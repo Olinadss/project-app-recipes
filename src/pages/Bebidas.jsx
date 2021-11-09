@@ -29,10 +29,12 @@ export default function Bebidas() {
   useEffect(() => {
     if (GLOBAL.responseFetch !== null) {
       const { drinks } = GLOBAL.responseFetch;
-      const twelve = 12;
-      setDrinksArray(drinks.slice(0, twelve));
-      if (drinks.length > 1) {
-        setIsList(true);
+      if (drinks !== null) {
+        const twelve = 12;
+        setDrinksArray(drinks.slice(0, twelve));
+        if (drinks.length > 1) {
+          setIsList(true);
+        }
       }
     }
   }, [GLOBAL]);
