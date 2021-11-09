@@ -20,17 +20,20 @@ export default function ComidaProgress() {
   return (
     comidas && mealInfoToHeader
       ? (
-        <div>
-          <HeaderRecipe
-            name={ mealInfoToHeader.strMeal }
-            category={ mealInfoToHeader.strCategory }
-            thumb={ mealInfoToHeader.strMealThumb }
-          />
-          <Ingredients
-            ingredients={ {} }
-            // displayCheckbox
-          />
-        </div>
+        <>
+          <div>
+            <HeaderRecipe
+              name={ mealInfoToHeader.strMeal }
+              category={ mealInfoToHeader.strCategory }
+              thumb={ mealInfoToHeader.strMealThumb }
+            />
+            <Ingredients
+              ingredients={ {} }
+              // displayCheckbox
+            />
+          </div>
+          <button type="button" data-testid="finish-recipe-btn">Finalizar Receita</button>
+        </>
       )
       : null
   );
