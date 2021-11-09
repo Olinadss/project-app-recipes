@@ -29,12 +29,17 @@ export default function Bebidas() {
     setUrlBebidas(`https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`);
   }
 
+  function handleClickIsClicked() {
+    setUrlBebidas('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
+  }
+
   return (
     <div>
       <Header title="Bebidas" />
       <CategoriesButtons
         categories={ categories }
         handleClick={ handleClick }
+        handleClickIsClicked={ handleClickIsClicked }
       />
       <div className="container-md">
         {first12Drinks.map((meal, index) => (

@@ -1,21 +1,44 @@
 import PropTypes from 'prop-types';
-import React from 'react';
+import React, { useState } from 'react';
 
-export default function CategoriesButtons({ categories, handleClick }) {
-  const first5Categories = categories.reduce((acc, comida, index) => {
+export default function CategoriesButtons({
+  categories, handleClick, handleClickIsClicked,
+}) {
+  const [isClicked, setIsClicked] = useState([false, false, false, false, false]);
+
+  const first5Categories = categories.reduce((acc, category, index) => {
     const NUMBER = 5;
-    if (index < NUMBER) acc = [...acc, comida];
+    if (index < NUMBER) acc = [...acc, category];
     return acc;
   }, []);
 
+  async function toogleClicked(category, index) {
+    console.log(isClicked[index]);
+    if (isClicked[index]) {
+      handleClickIsClicked();
+    } else {
+      handleClick(category);
+    }
+
+    setIsClicked((prevState) => prevState.reduce((accumulator, state, stateIndex) => {
+      if (stateIndex === index) {
+        accumulator = [...accumulator, !state];
+        return accumulator;
+      }
+      accumulator = [...accumulator, state];
+      return accumulator;
+    }, []));
+  }
+
   return (
     <div>
-      {first5Categories.map((category) => (
+      {first5Categories.map((category, index) => (
         <button
           data-testid={ `${category}-category-filter` }
           type="button"
           key={ category }
-          onClick={ () => handleClick(category) }
+          onClick={ () => toogleClicked(category, index) }
+          value={ isClicked[index] }
         >
           {category}
         </button>
@@ -27,4 +50,5 @@ export default function CategoriesButtons({ categories, handleClick }) {
 CategoriesButtons.propTypes = {
   categories: PropTypes.arrayOf(PropTypes.string).isRequired,
   handleClick: PropTypes.func.isRequired,
+  handleClickIsClicked: PropTypes.func.isRequired,
 };

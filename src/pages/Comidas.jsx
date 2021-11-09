@@ -29,12 +29,17 @@ export default function Recipes() {
     setUrlComidas(`https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`);
   }
 
+  function handleClickIsClicked() {
+    setUrlComidas('https://www.themealdb.com/api/json/v1/1/search.php?s=');
+  }
+
   return (
     <div>
       <Header title="Comidas" />
       <CategoriesButtons
         categories={ categories }
         handleClick={ handleClick }
+        handleClickIsClicked={ handleClickIsClicked }
       />
       <div className="container-md">
         {first12Meals.map((meal, index) => (
