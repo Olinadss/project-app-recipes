@@ -5,7 +5,18 @@ export default function Explorar() {
   return (
     <div>
       <Header title="Explorar" search={ false } />
-      Explorar
+      <button
+        data-testid="explore-food"
+        type="button"
+      >
+        Explorar Comidas
+      </button>
+      <button
+        data-testid="explore-drinks"
+        type="button"
+      >
+        Explorar Bebidas
+      </button>
       <Footer />
     </div>
   );
