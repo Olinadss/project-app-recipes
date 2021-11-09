@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+
 export const GlobalContext = React.createContext();
 
 const GlobalStorage = ({ children }) => {

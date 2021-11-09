@@ -4,7 +4,7 @@ import { Header, RecipeCard } from '../components';
 import CardTelaPrincipal from '../components/CardTelaPrincipal';
 import CategoriesButtons from '../components/CategoriesButtons';
 import useBebidas from '../hooks/useBebidas';
-import  {GlobalContext}  from '../context/GlobalStorage'
+import { GlobalContext } from '../context/GlobalStorage';
 
 export default function Bebidas() {
   const { bebidas, setUrlBebidas } = useBebidas();
@@ -29,10 +29,12 @@ export default function Bebidas() {
   useEffect(() => {
     if (GLOBAL.responseFetch !== null) {
       const { drinks } = GLOBAL.responseFetch;
-      const twelve = 12;
-      setDrinksArray(drinks.slice(0, twelve));
-      if (drinks.length > 1) {
-        setIsList(true);
+      if (drinks !== null) {
+        const twelve = 12;
+        setDrinksArray(drinks.slice(0, twelve));
+        if (drinks.length > 1) {
+          setIsList(true);
+        }
       }
     }
   }, [GLOBAL]);
@@ -71,6 +73,12 @@ export default function Bebidas() {
             onClick={ () => cardHandleClick(meal.idDrink) }
           >
             { isList && <RecipeCard products={ drinksArray } pageName="bebidas" /> }
+            <CardTelaPrincipal
+              key={ meal.idDrink }
+              index={ index }
+              thumb={ meal.strDrinkThumb }
+              name={ meal.strDrink }
+            />
           </Link>
         ))}
       </div>

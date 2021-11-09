@@ -4,7 +4,7 @@ import { Header, RecipeCard } from '../components';
 import CardTelaPrincipal from '../components/CardTelaPrincipal';
 import CategoriesButtons from '../components/CategoriesButtons';
 import useComidas from '../hooks/useComidas';
-import { GlobalContext}  from '../context/GlobalStorage'
+import { GlobalContext } from '../context/GlobalStorage';
 
 export default function Recipes() {
   const { comidas, setUrlComidas } = useComidas();
@@ -23,15 +23,17 @@ export default function Recipes() {
     fetchCategories();
   }, [setUrlComidas]);
 
-const GLOBAL = useContext(GlobalContext);
+  const GLOBAL = useContext(GlobalContext);
 
   useEffect(() => {
     if (GLOBAL.responseFetch !== null) {
       const { meals } = GLOBAL.responseFetch;
-      const twelve = 12;
-      setFoods(meals.slice(0, twelve));
-      if (meals.length > 1) {
-        setIsList(true);
+      if (meals !== null) {
+        const twelve = 12;
+        setFoods(meals.slice(0, twelve));
+        if (meals.length > 1) {
+          setIsList(true);
+        }
       }
     }
   }, [GLOBAL]);
@@ -69,7 +71,12 @@ const GLOBAL = useContext(GlobalContext);
             to={ `/comidas/${meal.idMeal}` }
             onClick={ () => cardHandleClick(meal.idMeal) }
           >
-                        { isList && <RecipeCard products={ foods } pageName="comidas" /> }
+            { isList && <RecipeCard products={ foods } pageName="comidas" /> }
+            <CardTelaPrincipal
+              index={ index }
+              thumb={ meal.strMealThumb }
+              name={ meal.strMeal }
+            />
           </Link>
         ))}
       </div>

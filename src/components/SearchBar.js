@@ -1,7 +1,7 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import useFetch from '../hooks/useFetch';
-import {GlobalContext} from '../context/GlobalStorage';
+import { GlobalContext } from '../context/GlobalStorage';
 
 const SearchBar = () => {
   console.log(React);
@@ -16,7 +16,6 @@ const SearchBar = () => {
   const pageName = window.location.pathname;
 
   useEffect(() => {
-
     if (GLOBAL.responseFetch !== null && pageName === '/comidas') {
       console.log(GLOBAL.responseFetch);
       if (GLOBAL.responseFetch.meals === null) {

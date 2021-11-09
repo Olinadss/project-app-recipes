@@ -1,4 +1,3 @@
-
 import React, { useContext, useState } from 'react';
 import { GlobalContext } from '../context/GlobalStorage';
 
@@ -25,7 +24,7 @@ const useFetch = () => {
       setLoading(false);
       GLOBAL.setResponseFetch(json);
     }
-}, [GLOBAL]);
+  }, [GLOBAL]);
 
   return { data, loading, error, request };
 };
