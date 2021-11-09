@@ -1,13 +1,16 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { Header } from '../components';
+import { Header, RecipeCard } from '../components';
 import CardTelaPrincipal from '../components/CardTelaPrincipal';
 import CategoriesButtons from '../components/CategoriesButtons';
 import useBebidas from '../hooks/useBebidas';
+import  {GlobalContext}  from '../context/GlobalStorage'
 
 export default function Bebidas() {
   const { bebidas, setUrlBebidas } = useBebidas();
   const [categories, setCategories] = useState([]);
+  const [isList, setIsList] = useState(false);
+  const [drinksArray, setDrinksArray] = useState(null);
 
   useEffect(() => {
     async function fetchCategories() {
@@ -20,6 +23,19 @@ export default function Bebidas() {
     setUrlBebidas('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
     fetchCategories();
   }, [setUrlBebidas]);
+
+  const GLOBAL = useContext(GlobalContext);
+
+  useEffect(() => {
+    if (GLOBAL.responseFetch !== null) {
+      const { drinks } = GLOBAL.responseFetch;
+      const twelve = 12;
+      setDrinksArray(drinks.slice(0, twelve));
+      if (drinks.length > 1) {
+        setIsList(true);
+      }
+    }
+  }, [GLOBAL]);
 
   const first12Drinks = bebidas.reduce((acc, comida, index) => {
     const NUMBER = 12;
@@ -54,12 +70,7 @@ export default function Bebidas() {
             to={ `/bebidas/${meal.idDrink}` }
             onClick={ () => cardHandleClick(meal.idDrink) }
           >
-            <CardTelaPrincipal
-              key={ meal.idDrink }
-              index={ index }
-              thumb={ meal.strDrinkThumb }
-              name={ meal.strDrink }
-            />
+            { isList && <RecipeCard products={ drinksArray } pageName="bebidas" /> }
           </Link>
         ))}
       </div>

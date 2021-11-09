@@ -112,6 +112,30 @@
 
 }
 
+.container-md{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+aside{ 
+  background-color: #0fa36b;
+  height: 100%;
+  padding: 20px;
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.img-aside{
+  width: 100%;
+  margin-top: 50%;
+}
+
 .search-btn {
   background: #0fa36b;
   border: none;
@@ -161,5 +185,21 @@
     flex-flow: column;
     justify-content: center;
     margin: auto;
+  }
+  aside{ 
+    background-color: #0fa36b;
+    height: 30%;
+    width: 100%;
+    top: 0;
+    padding: 20px;
+    position: fixed;
+
+  }
+  .img-aside{
+    display: block;
+    width: 40%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 0%;
   }
 }

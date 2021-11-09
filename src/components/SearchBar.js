@@ -1,12 +1,73 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+import useFetch from '../hooks/useFetch';
+import {GlobalContext} from '../context/GlobalStorage';
 
 const SearchBar = () => {
   console.log(React);
-  const [setSearchInput] = useState('');
-  const [setOption] = useState('name');
+  const [searchInput, setSearchInput] = useState('');
+  const [option, setOption] = useState('name');
+  const { request } = useFetch();
+  const FIRST_LETTER = 'first-letter';
+  const INGREDIENTS = 'ingredients';
+  const NAME = 'name';
+  const GLOBAL = useContext(GlobalContext);
+  const history = useHistory();
+  const pageName = window.location.pathname;
 
-  const handleSubmit = () => {
+  useEffect(() => {
 
+    if (GLOBAL.responseFetch !== null && pageName === '/comidas') {
+      console.log(GLOBAL.responseFetch);
+      if (GLOBAL.responseFetch.meals === null) {
+        global.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+        GLOBAL.setResponseFetch(null);
+      } else if (GLOBAL.responseFetch.meals.length === 1) {
+        const { idMeal } = GLOBAL.responseFetch.meals[0];
+        history.push(`/comidas/${idMeal}`);
+      } else {
+        console.log('amigo estou aqui');
+      }
+    } else if (GLOBAL.responseFetch !== null && pageName === '/bebidas') {
+      if (GLOBAL.responseFetch.drinks === null) {
+        GLOBAL.setResponseFetch(null);
+        global.alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
+      } else if (GLOBAL.responseFetch.drinks.length === 1) {
+        const { idDrink } = GLOBAL.responseFetch.drinks[0];
+        history.push(`/bebidas/${idDrink}`);
+      } else {
+        console.log('amigo estou aqui');
+      }
+    }
+  }, [GLOBAL, history, pageName]);
+
+  const ifHandle = async (op, method) => {
+    if (pageName === '/comidas') {
+      await request(`https://www.themealdb.com/api/json/v1/1/${method}.php?${op}=${searchInput}`);
+    } else if (pageName === '/bebidas') {
+      await request(`https://www.thecocktaildb.com/api/json/v1/1/${method}.php?${op}=${searchInput}`);
+    }
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (searchInput.length > 1 && option === FIRST_LETTER) {
+      global.alert('Sua busca deve conter somente 1 (um) caracter');
+    } else {
+      switch (option) {
+      case INGREDIENTS:
+        ifHandle('i', 'filter');
+        break;
+      case NAME:
+        await ifHandle('s', 'search');
+        break;
+      case FIRST_LETTER:
+        ifHandle('f', 'search');
+        break;
+      default:
+        return null;
+      }
+    }
   };
 
   return (
@@ -18,7 +79,7 @@ const SearchBar = () => {
           style={ { width: '150%', borderRadius: '5px', border: '1px solid #ccc' } }
           data-testid="search-input"
           placeholder="Buscar Receita"
-          onChange={ setSearchInput }
+          onChange={ (e) => setSearchInput(e.target.value) }
         />
         <label className="btn btn-secondary" htmlFor="Ingredientes">
           Ingredientes
@@ -27,10 +88,10 @@ const SearchBar = () => {
             style={ { width: '70px' } }
             className="btn-check"
             id="Ingredientes"
-            value="ingredients"
+            value={ INGREDIENTS }
             data-testid="ingredient-search-radio"
             name="option"
-            onChange={ ({ target: { e } }) => setOption(e.value) }
+            onClick={ () => setOption(INGREDIENTS) }
           />
         </label>
         <label className="btn btn-secondary" htmlFor="name">
@@ -40,11 +101,11 @@ const SearchBar = () => {
             style={ { width: '70px' } }
             type="radio"
             id="name"
-            checked="true"
-            value="name"
+            value={ NAME }
             data-testid="name-search-radio"
             name="option"
-            onChange={ ({ target: { e } }) => setOption(e.value) }
+            onClick={ () => setOption(NAME) }
+            defaultChecked
           />
         </label>
         <label className="btn btn-secondary" htmlFor="first-letter">
@@ -54,10 +115,10 @@ const SearchBar = () => {
             type="radio"
             className="btn-check"
             id="first-letter"
-            value="first-letter"
+            value={ FIRST_LETTER }
             data-testid="first-letter-search-radio"
             name="option"
-            onChange={ ({ target: { e } }) => setOption(e.value) }
+            onClick={ () => setOption(FIRST_LETTER) }
           />
         </label>
         <button
