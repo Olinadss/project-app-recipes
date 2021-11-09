@@ -1,36 +1,40 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import useComidas from '../hooks/useComidas';
 import Ingredients from '../components/Ingredients';
 import HeaderRecipe from '../components/HeaderRecipe';
 import getIngredientsWithMeasures from '../utils/ingredients';
+import Instructions from '../components/Instructions';
 
 export default function ComidaProgress() {
-  const [ingredients, setIngredients] = useState({});
-  const [mealInfoToHeader, setMealInfoToHeader] = useState();
+  const [ingredientsInfo, setIngredientsInfo] = useState({});
+  const [ingredientsAndMeasures, setIngredientsAndMeasures] = useState();
   const { idMeal } = useParams();
-  const { comidas } = useComidas();
 
-  if (comidas.length > 0 && Object.values(ingredients).length === 0) {
-    const filteredMeal = comidas.find((comida) => comida.idMeal === idMeal);
-    setMealInfoToHeader(filteredMeal);
-    setIngredients(getIngredientsWithMeasures(filteredMeal));
-  }
+  useEffect(() => {
+    async function fetchFilteredMeal() {
+      const response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${idMeal}`);
+      const data = await response.json();
+      setIngredientsInfo(data.meals[0]);
+      setIngredientsAndMeasures(getIngredientsWithMeasures(data.meals[0]));
+    }
+    fetchFilteredMeal();
+  }, []);
 
   return (
-    comidas && mealInfoToHeader
+    ingredientsAndMeasures
       ? (
         <>
           <div>
             <HeaderRecipe
-              name={ mealInfoToHeader.strMeal }
-              category={ mealInfoToHeader.strCategory }
-              thumb={ mealInfoToHeader.strMealThumb }
+              name={ ingredientsInfo.strMeal }
+              category={ ingredientsInfo.strCategory }
+              thumb={ ingredientsInfo.strMealThumb }
             />
             <Ingredients
-              ingredients={ {} }
-              // displayCheckbox
+              ingredients={ ingredientsAndMeasures }
+              displayCheckbox
             />
+            <Instructions instructions={ ingredientsInfo.strInstructions } />
           </div>
           <button type="button" data-testid="finish-recipe-btn">Finalizar Receita</button>
         </>

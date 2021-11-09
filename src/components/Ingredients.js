@@ -2,6 +2,7 @@ import React from 'react';
 
 export default function Ingredients({ ingredients, displayCheckbox }) {
   const ingredientsInfo = Object.entries(ingredients);
+  console.log(ingredientsInfo);
   const dataTestId = displayCheckbox ? 'ingredient-step' : 'ingredient-name-and-measure';
 
   return (
