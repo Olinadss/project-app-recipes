@@ -22,6 +22,7 @@ export default function ContainerExplorar({ type }) {
         <button
           data-testid="explore-by-area"
           type="button"
+          onClick={ () => handleClick('/explorar/comidas/area') }
         >
           Por Local de Origem
         </button>
