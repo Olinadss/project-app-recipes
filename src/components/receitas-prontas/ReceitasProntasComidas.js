@@ -2,10 +2,10 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import shareIcon from '../../images/shareIcon.svg';
 
-export default function ReceitasProntas({ receitasProntas }) {
+export default function ReceitasProntasComidas({ receitasProntas, index }) {
   return (
     <div>
-      { receitasProntas.map((item, index) => (
+      { receitasProntas.map((item) => (
         <>
           <img
             src={ item.image }
@@ -40,7 +40,7 @@ export default function ReceitasProntas({ receitasProntas }) {
   );
 }
 
-ReceitasProntas.propTypes = {
+ReceitasProntasComidas.propTypes = {
   array: PropTypes.shape({
     map: PropTypes.func,
   }),

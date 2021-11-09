@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import ReceitasProntas from '../components/receitas-prontas/ReceitasProntas';
 import { setLocalStorage } from '../utils/localStorage';
 import { Header } from '../components';
+import ReceitasProntasComidas
+  from '../components/receitas-prontas/ReceitasProntasComidas';
+import ReceitasProntasBebidas
+  from '../components/receitas-prontas/ReceitasProntasBebidas';
 
 export default function ReceitasFeitas() {
   const [receitasFeitas, setReceitasFeitas] = useState([]);
@@ -35,13 +38,32 @@ export default function ReceitasFeitas() {
     const getLocalStorageDoneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
     setReceitasFeitas(getLocalStorageDoneRecipes);
   }, []);
+
+  function filterReceitas() {
+    return receitasFeitas.map((receita, index) => {
+      if (receita.type === 'comida') {
+        return (<ReceitasProntasComidas
+          key={ receita.id }
+          index={ index }
+          receitasProntas={ [receita] }
+        />);
+      }
+      return (<ReceitasProntasBebidas
+        key={ receita.id }
+        index={ index }
+        receitasProntas={ [receita] }
+      />);
+    });
+  }
+
   return (
     <div>
+      <Header title="Receitas Feitas" search={ false } />
       <button data-testid="filter-by-all-btn" type="button">All</button>
       <button data-testid="filter-by-food-btn" type="button">Food</button>
       <button data-testid="filter-by-drink-btn" type="button">Drinks</button>
-      {receitasFeitas && <ReceitasProntas receitasProntas={ receitasFeitas } />}
-      <Header title="Receitas Feitas" search={ false } />
+      {receitasFeitas && filterReceitas() }
+
     </div>
   );
 }
