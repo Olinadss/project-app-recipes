@@ -4,7 +4,7 @@ import { Header, Footer } from '../components';
 import { getLocalStorage } from '../utils/localStorage';
 
 export default function Perfil() {
-  const { email } = getLocalStorage('user');
+  const user = getLocalStorage('user');
   const history = useHistory();
 
   function handleClick(route) {
@@ -15,7 +15,9 @@ export default function Perfil() {
     <div>
       <Header title="Perfil" search={ false } />
       <section>
-        <p data-testid="profile-email">{email}</p>
+        <p data-testid="profile-email">
+          {user && user.email}
+        </p>
         <button
           type="button"
           data-testid="profile-done-btn"
