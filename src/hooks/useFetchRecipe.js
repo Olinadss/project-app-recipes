@@ -1,7 +1,9 @@
 import { useEffect, useState } from 'react';
+import getIngredientsWithMeasures from '../utils/ingredients';
 
 export default function useFetchRecipe(type, recipeID) {
   const [recipe, setRecipe] = useState(null);
+  const [ingredients, setIngredients] = useState(null);
 
   const url = type === 'meal'
     ? `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${recipeID}`
@@ -13,5 +15,12 @@ export default function useFetchRecipe(type, recipeID) {
       .then(({ [`${type}s`]: [retrievedRecipe] }) => setRecipe(retrievedRecipe));
   }, []);
 
-  return recipe;
+  useEffect(() => {
+    if (recipe) {
+      const ingredientsWithMeasures = getIngredientsWithMeasures(recipe);
+      setIngredients(ingredientsWithMeasures);
+    }
+  }, [recipe]);
+
+  return { recipe, ingredients };
 }

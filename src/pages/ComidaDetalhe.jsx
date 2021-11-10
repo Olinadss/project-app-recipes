@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useParams } from 'react-router';
 import {
   Ingredients,
@@ -9,19 +9,10 @@ import {
   StartRecipeButton,
 } from '../components';
 import useFetchRecipe from '../hooks/useFetchRecipe';
-import getIngredientsWithMeasures from '../utils/ingredients';
 
 export default function ComidaDetalhe() {
   const { idMeal } = useParams();
-  const meal = useFetchRecipe('meal', idMeal);
-  const [ingredients, setIngredients] = useState(null);
-
-  useEffect(() => {
-    if (meal) {
-      const ingredientsWithMeasures = getIngredientsWithMeasures(meal);
-      setIngredients(ingredientsWithMeasures);
-    }
-  }, [meal]);
+  const { recipe, ingredients } = useFetchRecipe('meal', idMeal);
 
   return (
     <div>
@@ -30,13 +21,13 @@ export default function ComidaDetalhe() {
           ? (
             <>
               <RecipeHeader
-                name={ meal.strMeal }
-                category={ meal.strCategory }
-                thumb={ meal.strMealThumb }
+                name={ recipe.strMeal }
+                category={ recipe.strCategory }
+                thumb={ recipe.strMealThumb }
               />
               <Ingredients ingredients={ ingredients } />
-              <Instructions instructions={ meal.strInstructions } />
-              <YouTubeVideo url={ meal.strYoutube } />
+              <Instructions instructions={ recipe.strInstructions } />
+              <YouTubeVideo url={ recipe.strYoutube } />
               <Recommendations type="drinks" />
               <StartRecipeButton />
             </>
