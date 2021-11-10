@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { Header, Footer, CardIngredientes } from '../components';
+import useComidas from '../hooks/useComidas';
 
 export default function IngredComidas() {
+  const history = useHistory();
+  const { setUrlComidas } = useComidas();
   const [ingredientes, setIngredientes] = useState([]);
 
   async function fetchIngredientes() {
@@ -21,18 +25,28 @@ export default function IngredComidas() {
     return acc;
   }, []);
 
+  function handleClickIngredient(ingrediente) {
+    setUrlComidas(`https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingrediente}`);
+    history.push('/comidas');
+  }
+
   return (
     <div>
       <Header title="Explorar Ingredientes" search={ false } />
       {first12Ingredientes.map((ingrediente, index) => (
-        <CardIngredientes
+        <button
+          type="button"
           key={ ingrediente.strIngredient }
-          index={ index }
-          name={ ingrediente.strIngredient }
-          image={
-            `https://www.themealdb.com/images/ingredients/${ingrediente.strIngredient}-Small.png`
-          }
-        />
+          onClick={ () => handleClickIngredient(ingrediente.strIngredient) }
+        >
+          <CardIngredientes
+            index={ index }
+            name={ ingrediente.strIngredient }
+            image={
+              `https://www.themealdb.com/images/ingredients/${ingrediente.strIngredient}-Small.png`
+            }
+          />
+        </button>
       ))}
       <Footer />
     </div>

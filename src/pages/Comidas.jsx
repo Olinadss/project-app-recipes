@@ -19,7 +19,7 @@ export default function Recipes() {
       const data = await response.json();
       setCategories(data.meals.map((category) => category.strCategory));
     }
-    setUrlComidas('https://www.themealdb.com/api/json/v1/1/search.php?s=');
+
     fetchCategories();
   }, [setUrlComidas]);
 
