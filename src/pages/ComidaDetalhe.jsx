@@ -8,18 +8,13 @@ import {
   Recommendations,
   StartRecipeButton,
 } from '../components';
+import useFetchRecipe from '../hooks/useFetchRecipe';
 import getIngredientsWithMeasures from '../utils/ingredients';
 
 export default function ComidaDetalhe() {
   const { idMeal } = useParams();
-  const [meal, setMeal] = useState(null);
+  const meal = useFetchRecipe('meal', idMeal);
   const [ingredients, setIngredients] = useState(null);
-
-  useEffect(() => {
-    fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${idMeal}`)
-      .then((response) => response.json())
-      .then(({ meals: [retrievedMeal] }) => setMeal(retrievedMeal));
-  }, []);
 
   useEffect(() => {
     if (meal) {
