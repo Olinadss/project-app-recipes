@@ -1,11 +1,19 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-export default class StartRecipeButton extends Component {
-  render() {
-    return (
-      <button type="button" data-testid="start-recipe-btn">
-        Iniciar Receita
-      </button>
-    );
-  }
+export default function StartRecipeButton() {
+  const styles = {
+    position: 'fixed',
+    bottom: '0px',
+    right: '0px',
+  };
+
+  return (
+    <button
+      type="button"
+      data-testid="start-recipe-btn"
+      style={ styles }
+    >
+      Iniciar Receita
+    </button>
+  );
 }

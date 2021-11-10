@@ -4,6 +4,7 @@
   flex-direction: column;
   justify-content: center;
   min-width: 51%;
+  padding: 3px;
 }
 
 .RecommendationCard > img {
