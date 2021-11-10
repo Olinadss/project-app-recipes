@@ -1,7 +1,9 @@
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import React, { useState } from 'react';
 import copy from 'clipboard-copy';
 import shareIcon from '../../images/shareIcon.svg';
+import '../../styles/ReceitasFeitas.css';
 
 export default function ReceitasProntasBebidas({ receitasProntas, index }) {
   const [isMensage, setIsMensage] = useState(false);
@@ -15,12 +17,17 @@ export default function ReceitasProntasBebidas({ receitasProntas, index }) {
     <div>
       { receitasProntas.map((item) => (
         <>
-          <img
-            src={ item.image }
-            alt={ item.name }
-            data-testid={ `${index}-horizontal-image` }
-          />
-          <h2 data-testid={ `${index}-horizontal-name` }>{item.name}</h2>
+          <Link to={ `bebidas/${item.id}` }>
+            <img
+              className="image-receitas-feitas"
+              src={ item.image }
+              alt={ item.name }
+              data-testid={ `${index}-horizontal-image` }
+            />
+          </Link>
+          <Link to={ `bebidas/${item.id}` }>
+            <h2 data-testid={ `${index}-horizontal-name` }>{item.name}</h2>
+          </Link>
           <h2
             data-testid={ `${index}-horizontal-top-text` }
           >
