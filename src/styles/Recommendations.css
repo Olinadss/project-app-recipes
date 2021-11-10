@@ -1,0 +1,7 @@
+.Recommendations {
+  display: flex;
+  flex-direction: row;
+  overflow: auto;
+  position: relative;
+  width: 100%;
+}

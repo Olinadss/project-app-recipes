@@ -14,7 +14,7 @@ export default function RecipeHeader({ name, category, thumb, drinkType }) {
         width="300"
       />
       <h2 data-testid="recipe-title">{ name }</h2>
-      <h4 data-testid="recipe-category">{drinkType || category}</h4>
+      <h5 data-testid="recipe-category">{drinkType || category}</h5>
       <ShareButton />
       <FavoriteButton />
     </div>
