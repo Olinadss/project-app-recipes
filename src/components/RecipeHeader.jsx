@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import FavoriteButton from './FavoriteButton';
 import ShareButton from './ShareButton';
+import FavoriteButton from './FavoriteButton';
 
-export default function HeaderRecipe({ name, category, thumb }) {
+export default function RecipeHeader({ name, category, thumb, drinkType }) {
   return (
     <div>
       <img
@@ -14,15 +14,20 @@ export default function HeaderRecipe({ name, category, thumb }) {
         width="300"
       />
       <h2 data-testid="recipe-title">{ name }</h2>
-      <h4 data-testid="recipe-category">{ category }</h4>
+      <h4 data-testid="recipe-category">{drinkType || category}</h4>
       <ShareButton />
       <FavoriteButton />
     </div>
   );
 }
 
-HeaderRecipe.propTypes = {
-  name: PropTypes.string,
-  category: PropTypes.string,
-  thumb: PropTypes.string,
-}.isRequired;
+RecipeHeader.propTypes = {
+  name: PropTypes.string.isRequired,
+  category: PropTypes.string.isRequired,
+  thumb: PropTypes.string.isRequired,
+  drinkType: PropTypes.string,
+};
+
+RecipeHeader.defaultProps = {
+  drinkType: '',
+};

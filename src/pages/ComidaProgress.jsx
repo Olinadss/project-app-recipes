@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import useComidas from '../hooks/useComidas';
 import Ingredients from '../components/Ingredients';
-import HeaderRecipe from '../components/HeaderRecipe';
+import HeaderRecipe from '../components/RecipeHeader';
 import getIngredientsWithMeasures from '../utils/ingredients';
 
 export default function ComidaProgress() {
