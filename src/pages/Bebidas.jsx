@@ -20,7 +20,6 @@ export default function Bebidas() {
       setCategories(data.drinks.map((category) => category.strCategory));
     }
 
-    setUrlBebidas('https://www.thecocktaildb.com/api/json/v1/1/search.php?s=');
     fetchCategories();
   }, [setUrlBebidas]);
 
