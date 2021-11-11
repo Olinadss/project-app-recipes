@@ -28,6 +28,7 @@ export default function ComidaDetalhe() {
           ? (
             <>
               <RecipeHeader
+                id={ recipe.idMeal }
                 name={ recipe.strMeal }
                 category={ recipe.strCategory }
                 thumb={ recipe.strMealThumb }

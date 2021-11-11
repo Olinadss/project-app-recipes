@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import ShareButton from './ShareButton';
 import FavoriteButton from './FavoriteButton';
 
-export default function RecipeHeader({ name, category, thumb, drinkType }) {
+export default function RecipeHeader({ id, name, category, thumb, drinkType }) {
   return (
     <div>
       <img
@@ -14,8 +14,12 @@ export default function RecipeHeader({ name, category, thumb, drinkType }) {
         width="300"
       />
       <h2 data-testid="recipe-title">{ name }</h2>
-      <h5 data-testid="recipe-category">{drinkType || category}</h5>
-      <ShareButton />
+      <h5 data-testid="recipe-category">{ drinkType || category }</h5>
+      <ShareButton
+        parentPath={ drinkType ? 'bebidas' : 'comidas' }
+        recipeID={ id }
+        dataTestID="share-btn"
+      />
       <FavoriteButton />
     </div>
   );

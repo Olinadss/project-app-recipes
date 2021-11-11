@@ -23,6 +23,7 @@ export default function BebidaDetalhe() {
           ? (
             <>
               <RecipeHeader
+                id={ recipe.idDrink }
                 name={ recipe.strDrink }
                 category={ recipe.strCategory }
                 thumb={ recipe.strDrinkThumb }
