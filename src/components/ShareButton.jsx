@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import useCopyRecipeToClipboard from '../hooks/useCopyRecipeToClipboard';
 import shareIcon from '../images/shareIcon.svg';
 
@@ -27,3 +28,9 @@ export default function ShareButton({ parentPath, recipeID, dataTestID }) {
     </div>
   );
 }
+
+ShareButton.propTypes = {
+  dataTestID: PropTypes.string.isRequired,
+  parentPath: PropTypes.string.isRequired,
+  recipeID: PropTypes.string.isRequired,
+};

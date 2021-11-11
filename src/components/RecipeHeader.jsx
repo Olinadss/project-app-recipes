@@ -26,6 +26,7 @@ export default function RecipeHeader({ id, name, category, thumb, drinkType }) {
 }
 
 RecipeHeader.propTypes = {
+  id: PPropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   category: PropTypes.string.isRequired,
   thumb: PropTypes.string.isRequired,
