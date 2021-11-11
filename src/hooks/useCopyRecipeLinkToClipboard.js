@@ -14,18 +14,5 @@ export default function useCopyRecipeLinkToClipboard(parentPath, recipeID) {
     }
   };
 
-  useEffect(() => {
-    let timeoutID = null;
-    const copiedMessageDuration = 3000;
-
-    if (shouldShowCopiedMessage) {
-      timeoutID = setTimeout(
-        () => setShouldShowCopiedMessage(false), copiedMessageDuration,
-      );
-    }
-
-    return () => clearTimeout(timeoutID);
-  }, [shouldShowCopiedMessage]);
-
   return { shouldShowCopiedMessage, copyRecipeLinkToClipboard };
 }
