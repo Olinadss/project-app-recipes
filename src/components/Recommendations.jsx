@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import Slider from 'react-slick';
 import RecommendationCard from './RecommendationCard';
-import '../styles/Recommendations.css';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 export default function Recommendations({ type }) {
   const [recommendations, setRecommendations] = useState([]);
@@ -17,14 +19,16 @@ export default function Recommendations({ type }) {
       .then((filteredRecipes) => setRecommendations(filteredRecipes));
   }, []);
 
+  const settings = { slidesToShow: 2, infinite: false };
+
   return (
     <div>
       <h4>Recomendadas</h4>
-      <div className="Recommendations">
+      <Slider { ...settings }>
         {recommendations.map((recommendation, index) => (
           <RecommendationCard key={ index } index={ index } recipe={ recommendation } />
         ))}
-      </div>
+      </Slider>
     </div>
   );
 }
