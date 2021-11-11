@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ShareRecipeButton from './ShareRecipeButton';
-import FavoriteButton from './FavoriteButton';
+import ToggleFavoriteRecipeButton from './ToggleFavoriteRecipeButton';
 
 export default function RecipeHeader({ id, name, category, thumb, drinkType }) {
   return (
@@ -20,7 +20,7 @@ export default function RecipeHeader({ id, name, category, thumb, drinkType }) {
         recipeID={ id }
         dataTestID="share-btn"
       />
-      <FavoriteButton />
+      <ToggleFavoriteRecipeButton />
     </div>
   );
 }
