@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import useCopyRecipeToClipboard from '../hooks/useCopyRecipeToClipboard';
+import useCopyRecipeLinkToClipboard from '../hooks/useCopyRecipeLinkToClipboard';
 import shareIcon from '../images/shareIcon.svg';
 
 export default function ShareRecipeButton(
   { parentPath, recipeID, dataTestID },
 ) {
   const {
-    shouldShowCopiedMessage, copyToClipboard,
-  } = useCopyRecipeToClipboard(parentPath, recipeID);
+    shouldShowCopiedMessage, copyRecipeLinkToClipboard,
+  } = useCopyRecipeLinkToClipboard(parentPath, recipeID);
 
   const copiedMessage = 'Link copiado!';
 
@@ -18,7 +18,7 @@ export default function ShareRecipeButton(
         type="image"
         src={ shareIcon }
         alt="Compartilhar receita"
-        onClick={ copyToClipboard }
+        onClick={ copyRecipeLinkToClipboard }
         data-testid={ dataTestID }
       />
       { shouldShowCopiedMessage && <span>{ copiedMessage }</span> }
