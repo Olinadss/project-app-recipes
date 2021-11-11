@@ -1,10 +1,7 @@
-import React, { createContext, useEffect, useState, useContext } from 'react';
-import PropTypes from 'prop-types';
+import { useEffect, useState } from 'react';
 import { getLocalStorage, setLocalStorage } from '../utils/localStorage';
 
-const FavoriteRecipesContext = createContext();
-
-export function FavoriteRecipesProvider({ children }) {
+export default function useFavoriteRecipes() {
   const [favoriteRecipes, setFavoriteRecipes] = useState([]);
 
   const getFavoriteStatusByID = (targetID) => favoriteRecipes.some(
@@ -34,24 +31,5 @@ export function FavoriteRecipesProvider({ children }) {
     setLocalStorage('favoriteRecipes', favoriteRecipes);
   }, [favoriteRecipes]);
 
-  const contextValue = {
-    favoriteRecipes,
-    toggleFavoriteStatus,
-    getFavoriteStatusByID,
-  };
-
-  return (
-    <FavoriteRecipesContext.Provider value={ contextValue }>
-      { children }
-    </FavoriteRecipesContext.Provider>
-  );
+  return { favoriteRecipes, getFavoriteStatusByID, toggleFavoriteStatus };
 }
-
-export default function useFavoriteRecipes() {
-  const context = useContext(FavoriteRecipesContext);
-
-  return context;
-}
-FavoriteRecipesProvider.propTypes = {
-  children: PropTypes.node.isRequired,
-};
