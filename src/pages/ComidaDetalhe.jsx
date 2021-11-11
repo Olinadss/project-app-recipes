@@ -29,9 +29,11 @@ export default function ComidaDetalhe() {
             <>
               <RecipeHeader
                 id={ recipe.idMeal }
-                name={ recipe.strMeal }
+                type="comida"
+                area={ recipe.strArea }
                 category={ recipe.strCategory }
-                thumb={ recipe.strMealThumb }
+                name={ recipe.strMeal }
+                image={ recipe.strMealThumb }
               />
               <Ingredients ingredients={ ingredients } />
               <Instructions instructions={ recipe.strInstructions } />

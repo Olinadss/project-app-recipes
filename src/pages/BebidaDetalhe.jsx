@@ -24,10 +24,11 @@ export default function BebidaDetalhe() {
             <>
               <RecipeHeader
                 id={ recipe.idDrink }
-                name={ recipe.strDrink }
+                type="bebida"
                 category={ recipe.strCategory }
-                thumb={ recipe.strDrinkThumb }
-                drinkType={ recipe.strAlcoholic }
+                alcoholicOrNot={ recipe.strAlcoholic }
+                name={ recipe.strDrink }
+                image={ recipe.strDrinkThumb }
               />
               <Ingredients ingredients={ ingredients } />
               <Instructions instructions={ recipe.strInstructions } />
