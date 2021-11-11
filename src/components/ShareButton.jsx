@@ -3,11 +3,10 @@ import PropTypes from 'prop-types';
 import useCopyRecipeToClipboard from '../hooks/useCopyRecipeToClipboard';
 import shareIcon from '../images/shareIcon.svg';
 
-export default function ShareButton({ parentPath, recipeID, dataTestID }) {
+export default function ShareButton({ parentPath, recipeID, dataTestID, getRecipeID }) {
   const {
     shouldShowCopiedMessage, copyToClipboard,
   } = useCopyRecipeToClipboard(parentPath, recipeID);
-  console.log(shouldShowCopiedMessage);
 
   const copiedMessage = 'Link copiado!';
 
@@ -19,7 +18,7 @@ export default function ShareButton({ parentPath, recipeID, dataTestID }) {
         data-testid={ dataTestID }
       >
         <img
-          id={ recipeID }
+          id={ recipeID || getRecipeID() }
           src={ shareIcon }
           alt="Compartilhar receita"
         />
@@ -33,4 +32,9 @@ ShareButton.propTypes = {
   dataTestID: PropTypes.string.isRequired,
   parentPath: PropTypes.string.isRequired,
   recipeID: PropTypes.string.isRequired,
+  getRecipeID: PropTypes.func,
+};
+
+ShareButton.defaultProps = {
+  getRecipeID: null,
 };
