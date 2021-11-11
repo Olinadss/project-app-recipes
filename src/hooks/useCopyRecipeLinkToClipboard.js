@@ -6,8 +6,12 @@ export default function useCopyRecipeLinkToClipboard(parentPath, recipeID) {
   const textToCopy = `http://localhost:3000/${parentPath}/${recipeID}`;
 
   const copyRecipeLinkToClipboard = async () => {
-    await copy(textToCopy);
-    setShouldShowCopiedMessage(true);
+    try {
+      await copy(textToCopy);
+      setShouldShowCopiedMessage(true);
+    } catch (error) {
+      throw new Error(error);
+    }
   };
 
   useEffect(() => {
