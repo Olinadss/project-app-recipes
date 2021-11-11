@@ -11,4 +11,4 @@ export { default as ShareButton } from './ShareButton';
 export { default as YouTubeVideo } from './YouTubeVideo';
 export { default as RecommendationCard } from './RecommendationCard';
 export { default as Recommendations } from './Recommendations';
-export { default as StartRecipeButton } from './StartRecipeButton';
+export { default as RecipeDetailButton } from './RecipeDetailButton';

@@ -6,13 +6,18 @@ import {
   RecipeHeader,
   YouTubeVideo,
   Recommendations,
-  StartRecipeButton,
+  RecipeDetailButton,
 } from '../components';
 import useFetchRecipe from '../hooks/useFetchRecipe';
 
 export default function ComidaDetalhe() {
   const { idMeal } = useParams();
-  const { recipe, ingredients } = useFetchRecipe('meal', idMeal);
+
+  const {
+    recipe, ingredients, recipeIsDone, recipeIsInProgress,
+  } = useFetchRecipe('meal', idMeal);
+
+  const buttonText = recipeIsInProgress ? 'Continuar Receita' : 'Iniciar receita';
 
   return (
     <div>
@@ -29,7 +34,7 @@ export default function ComidaDetalhe() {
               <Instructions instructions={ recipe.strInstructions } />
               <YouTubeVideo url={ recipe.strYoutube } />
               <Recommendations type="drinks" />
-              <StartRecipeButton />
+              {recipeIsDone ? null : <RecipeDetailButton text={ buttonText } /> }
             </>
           ) : null
       }

@@ -1,6 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-export default function StartRecipeButton() {
+export default function RecipeDetailButton({ text }) {
   const styles = {
     position: 'fixed',
     bottom: '0px',
@@ -13,7 +14,11 @@ export default function StartRecipeButton() {
       data-testid="start-recipe-btn"
       style={ styles }
     >
-      Iniciar Receita
+      { text }
     </button>
   );
 }
+
+RecipeDetailButton.propTypes = {
+  text: PropTypes.string.isRequired,
+};
