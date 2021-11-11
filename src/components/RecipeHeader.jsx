@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ShareButton from './ShareButton';
+import ShareRecipeButton from './ShareRecipeButton';
 import FavoriteButton from './FavoriteButton';
 
 export default function RecipeHeader({ id, name, category, thumb, drinkType }) {
@@ -15,7 +15,7 @@ export default function RecipeHeader({ id, name, category, thumb, drinkType }) {
       />
       <h2 data-testid="recipe-title">{ name }</h2>
       <h5 data-testid="recipe-category">{ drinkType || category }</h5>
-      <ShareButton
+      <ShareRecipeButton
         parentPath={ drinkType ? 'bebidas' : 'comidas' }
         recipeID={ id }
         dataTestID="share-btn"
