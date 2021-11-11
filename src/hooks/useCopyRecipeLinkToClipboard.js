@@ -10,7 +10,7 @@ export default function useCopyRecipeLinkToClipboard(parentPath, recipeID) {
       await copy(textToCopy);
       setShouldShowCopiedMessage(true);
     } catch (error) {
-      throw new Error(error);
+      console.error(error);
     }
   };
 
