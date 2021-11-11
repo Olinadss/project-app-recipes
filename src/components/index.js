@@ -13,3 +13,4 @@ export { default as RecommendationCard } from './RecommendationCard';
 export { default as Recommendations } from './Recommendations';
 export { default as RecipeDetailButton } from './RecipeDetailButton';
 export { default as ContainerExplorar } from './ContainerExplorar';
+export { default as CardIngredientes } from './CardIngredientes';
