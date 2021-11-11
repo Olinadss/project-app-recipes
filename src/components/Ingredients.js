@@ -42,7 +42,7 @@ export default function Ingredients({ ingredients, displayCheckbox }) {
           type="checkbox"
           style={ displayCheckbox ? {} : { display: 'none' } }
           onClick={ (event) => saveChecked(event) }
-          checked={ checkeds && (checkeds[ingredient] || false) }
+          defaultChecked={ checkeds && (checkeds[ingredient] || false) }
         />
 
         {`${ingredient} - ${measure}`}
