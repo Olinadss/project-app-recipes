@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-export default function RecipeDetailButton({ text }) {
+export default function RecipeDetailButton({ text, onClick }) {
   const styles = {
     position: 'fixed',
     bottom: '0px',
@@ -13,6 +13,7 @@ export default function RecipeDetailButton({ text }) {
       type="button"
       data-testid="start-recipe-btn"
       style={ styles }
+      onClick={ onClick }
     >
       { text }
     </button>
@@ -21,4 +22,5 @@ export default function RecipeDetailButton({ text }) {
 
 RecipeDetailButton.propTypes = {
   text: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
 };

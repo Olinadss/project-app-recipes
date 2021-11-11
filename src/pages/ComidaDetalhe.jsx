@@ -1,5 +1,5 @@
 import React from 'react';
-import { useParams } from 'react-router';
+import { useParams, useHistory } from 'react-router';
 import {
   Ingredients,
   Instructions,
@@ -12,12 +12,14 @@ import useFetchRecipe from '../hooks/useFetchRecipe';
 
 export default function ComidaDetalhe() {
   const { idMeal } = useParams();
+  const history = useHistory();
 
   const {
     recipe, ingredients, recipeIsDone, recipeIsInProgress,
   } = useFetchRecipe('meal', idMeal);
 
   const buttonText = recipeIsInProgress ? 'Continuar Receita' : 'Iniciar receita';
+  const handleClick = () => history.push(`/comidas/${idMeal}/in-progress`);
 
   return (
     <div>
@@ -34,7 +36,16 @@ export default function ComidaDetalhe() {
               <Instructions instructions={ recipe.strInstructions } />
               <YouTubeVideo url={ recipe.strYoutube } />
               <Recommendations type="drinks" />
-              {recipeIsDone ? null : <RecipeDetailButton text={ buttonText } /> }
+              {
+                recipeIsDone
+                  ? null
+                  : (
+                    <RecipeDetailButton
+                      text={ buttonText }
+                      onClick={ handleClick }
+                    />
+                  )
+              }
             </>
           ) : null
       }
