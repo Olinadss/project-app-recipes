@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import copy from 'clipboard-copy';
 
 export default function useCopyRecipeLinkToClipboard(parentPath, recipeID) {
