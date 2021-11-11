@@ -46,7 +46,7 @@ export default function RecipeHeader(
         dataTestID="share-btn"
       />
       <ToggleFavoriteRecipeButton
-        checked={ getFavoriteStatusByID(id) }
+        isFavorite={ getFavoriteStatusByID(id) }
         onClick={ handleClick }
         dataTestID="favorite-btn"
       />

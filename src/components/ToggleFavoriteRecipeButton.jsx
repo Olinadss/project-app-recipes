@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import whiteHearIcon from '../images/whiteHeartIcon.svg';
 
-export default function ToggleFavoriteRecipeButton({ checked, onClick, dataTestID }) {
+export default function ToggleFavoriteRecipeButton({ isFavorite, onClick, dataTestID }) {
   return (
     <input
       type="image"
-      src={ checked ? blackHeartIcon : whiteHearIcon }
+      src={ isFavorite ? blackHeartIcon : whiteHearIcon }
       alt="Favoritar receita"
       onClick={ onClick }
       data-testid={ dataTestID }
@@ -16,7 +16,7 @@ export default function ToggleFavoriteRecipeButton({ checked, onClick, dataTestI
 }
 
 ToggleFavoriteRecipeButton.propTypes = {
-  checked: PropTypes.bool.isRequired,
-  dataTestID: PropTypes.string.isRequired,
+  isFavorite: PropTypes.bool.isRequired,
   onClick: PropTypes.func.isRequired,
+  dataTestID: PropTypes.string.isRequired,
 };
