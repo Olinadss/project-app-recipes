@@ -17,21 +17,25 @@ import Perfil from './pages/Perfil';
 import ReceitasFeitas from './pages/ReceitasFeitas';
 import ReceitasFavoritas from './pages/ReceitasFavoritas';
 import NotFound from './pages/NotFound';
+import { FavoriteRecipesProvider } from './hooks/useFavoriteRecipes';
 
 function Routes() {
   return (
     <Switch>
       <Route exact path="/" component={ Login } />
       <Route exact path="/comidas" component={ Comidas } />
-      <Route exact path="/comidas/:idMeal" component={ ComidaDetalhe } />
-      <Route exact path="/comidas/:idMeal/in-progress" component={ ComidaProgress } />
       <Route exact path="/bebidas" component={ Bebidas } />
-      <Route exact path="/bebidas/:idCocktails" component={ BebidaDetalhe } />
-      <Route
-        exact
-        path="/bebidas/:idCocktails/in-progress"
-        component={ BebidaProgress }
-      />
+      <FavoriteRecipesProvider>
+        <Route exact path="/comidas/:idMeal" component={ ComidaDetalhe } />
+        <Route exact path="/comidas/:idMeal/in-progress" component={ ComidaProgress } />
+        <Route exact path="/bebidas/:idCocktails" component={ BebidaDetalhe } />
+        <Route
+          exact
+          path="/bebidas/:idCocktails/in-progress"
+          component={ BebidaProgress }
+        />
+        <Route exact path="/receitas-favoritas" component={ ReceitasFavoritas } />
+      </FavoriteRecipesProvider>
       <Route exact path="/explorar" component={ Explorar } />
       <Route exact path="/explorar/comidas" component={ ExplorarComidas } />
       <Route exact path="/explorar/bebidas" component={ ExplorarBebidas } />
@@ -40,7 +44,6 @@ function Routes() {
       <Route exact path="/explorar/comidas/area" component={ ComidasArea } />
       <Route exact path="/perfil" component={ Perfil } />
       <Route exact path="/receitas-feitas" component={ ReceitasFeitas } />
-      <Route exact path="/receitas-favoritas" component={ ReceitasFavoritas } />
       <Route exact path="" component={ NotFound } />
     </Switch>
   );
