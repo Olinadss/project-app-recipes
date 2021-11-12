@@ -1,0 +1,13 @@
+.RecommendationCard {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 51%;
+  padding: 3px;
+}
+
+.RecommendationCard > img {
+  height: 100%;
+  width: 100%;
+}

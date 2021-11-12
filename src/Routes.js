@@ -17,20 +17,46 @@ import Perfil from './pages/Perfil';
 import ReceitasFeitas from './pages/ReceitasFeitas';
 import ReceitasFavoritas from './pages/ReceitasFavoritas';
 import NotFound from './pages/NotFound';
+import { FavoriteRecipesProvider } from './hooks/useFavoriteRecipes';
+
+function wrapInFavoriteRecipesProvider(Component, props) {
+  return (
+    <FavoriteRecipesProvider>
+      <Component { ...props } />
+    </FavoriteRecipesProvider>
+  );
+}
 
 function Routes() {
   return (
     <Switch>
       <Route exact path="/" component={ Login } />
       <Route exact path="/comidas" component={ Comidas } />
-      <Route exact path="/comidas/:idMeal" component={ ComidaDetalhe } />
-      <Route exact path="/comidas/:idMeal/in-progress" component={ ComidaProgress } />
       <Route exact path="/bebidas" component={ Bebidas } />
-      <Route exact path="/bebidas/:idCocktails" component={ BebidaDetalhe } />
+      <Route
+        exact
+        path="/comidas/:idMeal"
+        render={ (props) => wrapInFavoriteRecipesProvider(ComidaDetalhe, props) }
+      />
+      <Route
+        exact
+        path="/comidas/:idMeal/in-progress"
+        render={ (props) => wrapInFavoriteRecipesProvider(ComidaProgress, props) }
+      />
+      <Route
+        exact
+        path="/bebidas/:idCocktails"
+        render={ (props) => wrapInFavoriteRecipesProvider(BebidaDetalhe, props) }
+      />
       <Route
         exact
         path="/bebidas/:idCocktails/in-progress"
-        component={ BebidaProgress }
+        render={ (props) => wrapInFavoriteRecipesProvider(BebidaProgress, props) }
+      />
+      <Route
+        exact
+        path="/receitas-favoritas"
+        render={ (props) => wrapInFavoriteRecipesProvider(ReceitasFavoritas, props) }
       />
       <Route exact path="/explorar" component={ Explorar } />
       <Route exact path="/explorar/comidas" component={ ExplorarComidas } />
@@ -40,7 +66,6 @@ function Routes() {
       <Route exact path="/explorar/comidas/area" component={ ComidasArea } />
       <Route exact path="/perfil" component={ Perfil } />
       <Route exact path="/receitas-feitas" component={ ReceitasFeitas } />
-      <Route exact path="/receitas-favoritas" component={ ReceitasFavoritas } />
       <Route exact path="" component={ NotFound } />
     </Switch>
   );

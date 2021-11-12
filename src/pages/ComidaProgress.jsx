@@ -1,67 +1,61 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import Ingredients from '../components/Ingredients';
-import HeaderRecipe from '../components/HeaderRecipe';
-import getIngredientsWithMeasures from '../utils/ingredients';
+import RecipeHeader from '../components/RecipeHeader';
 import Instructions from '../components/Instructions';
+import useFetchRecipe from '../hooks/useFetchRecipe';
 import { getLocalStorage, setLocalStorage } from '../utils/localStorage';
 
 export default function ComidaProgress() {
-  const [ingredientsInfo, setIngredientsInfo] = useState({});
-  const [ingredientsAndMeasures, setIngredientsAndMeasures] = useState();
   const { idMeal } = useParams();
+  const { recipe, ingredients } = useFetchRecipe('meal', idMeal);
 
   useEffect(() => {
-    async function fetchFilteredMeal() {
-      const response = await fetch(`https://www.themealdb.com/api/json/v1/1/lookup.php?i=${idMeal}`);
-      const data = await response.json();
-      const meal = data.meals[0];
+    if (!ingredients) return;
 
-      setIngredientsInfo(meal);
-      setIngredientsAndMeasures(getIngredientsWithMeasures(meal));
+    const ingredientList = Object.keys(ingredients);
 
-      const ingredientList = Object.keys(getIngredientsWithMeasures(meal));
+    const inProgressRecipes = getLocalStorage('inProgressRecipes');
 
-      const inProgressRecipes = getLocalStorage('inProgressRecipes');
+    let mealToLocalStorage = null;
 
-      let mealToLocalStorage = null;
-
-      if (inProgressRecipes) {
-        mealToLocalStorage = {
-          meals: {
-            ...inProgressRecipes.meals, [idMeal]: ingredientList,
-          },
-        };
-      } else {
-        mealToLocalStorage = {
-          meals: {
-            [idMeal]: ingredientList,
-          },
-        };
-      }
-
-      setLocalStorage(
-        'inProgressRecipes', { ...inProgressRecipes, ...mealToLocalStorage },
-      );
+    if (inProgressRecipes) {
+      mealToLocalStorage = {
+        meals: {
+          ...inProgressRecipes.meals, [idMeal]: ingredientList,
+        },
+      };
+    } else {
+      mealToLocalStorage = {
+        meals: {
+          [idMeal]: ingredientList,
+        },
+      };
     }
-    fetchFilteredMeal();
-  }, []);
+
+    setLocalStorage(
+      'inProgressRecipes', { ...inProgressRecipes, ...mealToLocalStorage },
+    );
+  }, [ingredients]);
 
   return (
-    ingredientsAndMeasures
+    ingredients
       ? (
         <>
           <div>
-            <HeaderRecipe
-              name={ ingredientsInfo.strMeal }
-              category={ ingredientsInfo.strCategory }
-              thumb={ ingredientsInfo.strMealThumb }
+            <RecipeHeader
+              id={ recipe.idMeal }
+              type="comida"
+              area={ recipe.strArea }
+              category={ recipe.strCategory }
+              name={ recipe.strMeal }
+              image={ recipe.strMealThumb }
             />
             <Ingredients
-              ingredients={ ingredientsAndMeasures }
+              ingredients={ ingredients }
               displayCheckbox
             />
-            <Instructions instructions={ ingredientsInfo.strInstructions } />
+            <Instructions instructions={ recipe.strInstructions } />
           </div>
           <button type="button" data-testid="finish-recipe-btn">Finalizar Receita</button>
         </>

@@ -25,7 +25,7 @@ export function ComidasProvider({ children }) {
 }
 
 ComidasProvider.propTypes = {
-  children: PropTypes.arrayOf(PropTypes.object).isRequired,
+  children: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 
 export default function useComidas() {
