@@ -30,21 +30,20 @@ export default function useFetchRecipe(type, recipeID) {
       const doneRecipes = getLocalStorage('doneRecipes');
       const allInProgressRecipes = getLocalStorage('inProgressRecipes');
       const targetInProgressRecipesKey = type === 'meal' ? 'meals' : 'cocktails';
-
       const {
         [targetInProgressRecipesKey]: targetInProgressRecipes,
       } = allInProgressRecipes || { [targetInProgressRecipesKey]: null };
 
       const targetInProgressRecipesIDs = targetInProgressRecipes
-        && Object.keys(targetInProgressRecipes);
+      && Object.keys(targetInProgressRecipes);
 
       const recipeIsDoneToBeSet = doneRecipes && doneRecipes.some(
-        ({ id }) => id === recipe.id,
+        ({ id }) => id === recipeID,
       );
 
       const recipeIsInProgressToBeSet = targetInProgressRecipesIDs
         && targetInProgressRecipesIDs.some(
-          ({ id }) => id === recipe.id,
+          (id) => { console.log(id); return id === recipeID; },
         );
 
       setRecipeIsDone(recipeIsDoneToBeSet);
