@@ -43,7 +43,7 @@ export default function useFetchRecipe(type, recipeID) {
 
       const recipeIsInProgressToBeSet = targetInProgressRecipesIDs
         && targetInProgressRecipesIDs.some(
-          (id) => { console.log(id); return id === recipeID; },
+          (id) => id === recipeID,
         );
 
       setRecipeIsDone(recipeIsDoneToBeSet);
