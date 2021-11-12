@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import copy from 'clipboard-copy';
 
 export default function useCopyRecipeLinkToClipboard(parentPath, recipeID) {
   const [shouldShowCopiedMessage, setShouldShowCopiedMessage] = useState(false);
@@ -7,7 +6,7 @@ export default function useCopyRecipeLinkToClipboard(parentPath, recipeID) {
 
   const copyRecipeLinkToClipboard = async () => {
     try {
-      await copy(textToCopy);
+      await window.navigator.clipboard.writeText(textToCopy);
       setShouldShowCopiedMessage(true);
     } catch (error) {
       console.error(error);
