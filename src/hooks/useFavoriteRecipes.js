@@ -1,57 +1,31 @@
-import React, { createContext, useEffect, useState, useContext } from 'react';
-import PropTypes from 'prop-types';
+import { useState } from 'react';
 import { getLocalStorage, setLocalStorage } from '../utils/localStorage';
 
-const FavoriteRecipesContext = createContext();
+export default function useFavoriteRecipes() {
+  const localStorageFavoriteRecipes = getLocalStorage('favoriteRecipes');
+  const initialFavoriteRecipesState = localStorageFavoriteRecipes || [];
+  const [favoriteRecipes, setFavoriteRecipes] = useState(initialFavoriteRecipesState);
 
-export function FavoriteRecipesProvider({ children }) {
-  const [favoriteRecipes, setFavoriteRecipes] = useState([]);
+  const getFavoriteStatusByID = (targetID) => {
+    const currentFavoriteRecipes = getLocalStorage('favoriteRecipes') || [];
 
-  const getFavoriteStatusByID = (targetID) => favoriteRecipes.some(
-    ({ id }) => id === targetID,
-  );
+    return currentFavoriteRecipes.some(({ id }) => id === targetID);
+  };
 
   const toggleFavoriteStatus = (targetID, newFavoriteRecipe) => {
-    const isFavorite = getFavoriteStatusByID(targetID);
+    const currentFavoriteRecipes = getLocalStorage('favoriteRecipes') || [];
 
-    if (isFavorite) {
-      const newFavoriteRecipes = favoriteRecipes.filter(({ id }) => id !== targetID);
-      setFavoriteRecipes(newFavoriteRecipes);
+    let newFavoriteRecipes;
+
+    if (newFavoriteRecipe) {
+      newFavoriteRecipes = [...currentFavoriteRecipes, newFavoriteRecipe];
     } else {
-      setFavoriteRecipes([...favoriteRecipes, newFavoriteRecipe]);
+      newFavoriteRecipes = currentFavoriteRecipes.filter(({ id }) => id !== targetID);
     }
+
+    setLocalStorage('favoriteRecipes', newFavoriteRecipes);
+    setFavoriteRecipes(newFavoriteRecipes);
   };
 
-  useEffect(() => {
-    const localStorageFavoriteRecipes = getLocalStorage('favoriteRecipes');
-
-    if (!localStorageFavoriteRecipes) return;
-
-    setFavoriteRecipes(localStorageFavoriteRecipes);
-  }, []);
-
-  useEffect(() => {
-    setLocalStorage('favoriteRecipes', favoriteRecipes);
-  }, [favoriteRecipes]);
-
-  const contextValue = {
-    favoriteRecipes,
-    toggleFavoriteStatus,
-    getFavoriteStatusByID,
-  };
-
-  return (
-    <FavoriteRecipesContext.Provider value={ contextValue }>
-      { children }
-    </FavoriteRecipesContext.Provider>
-  );
+  return { favoriteRecipes, getFavoriteStatusByID, toggleFavoriteStatus };
 }
-
-export default function useFavoriteRecipes() {
-  const context = useContext(FavoriteRecipesContext);
-
-  return context;
-}
-FavoriteRecipesProvider.propTypes = {
-  children: PropTypes.node.isRequired,
-};

@@ -11,7 +11,6 @@ export default function RecipeHeader(
 
   const handleClick = () => {
     const isFavoriteRecipe = getFavoriteStatusByID(id);
-
     if (isFavoriteRecipe) {
       toggleFavoriteStatus(id);
     } else {
