@@ -1,42 +1,13 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useParams } from 'react-router-dom';
-import Ingredients from '../components/Ingredients';
+import InProgressIngredients from '../components/InProgressIngredients';
 import RecipeHeader from '../components/RecipeHeader';
 import Instructions from '../components/Instructions';
 import useFetchRecipe from '../hooks/useFetchRecipe';
-import { getLocalStorage, setLocalStorage } from '../utils/localStorage';
 
 export default function ComidaProgress() {
   const { idMeal } = useParams();
   const { recipe, ingredients } = useFetchRecipe('meal', idMeal);
-
-  useEffect(() => {
-    if (!ingredients) return;
-
-    const ingredientList = Object.keys(ingredients);
-
-    const inProgressRecipes = getLocalStorage('inProgressRecipes');
-
-    let mealToLocalStorage = null;
-
-    if (inProgressRecipes) {
-      mealToLocalStorage = {
-        meals: {
-          ...inProgressRecipes.meals, [idMeal]: ingredientList,
-        },
-      };
-    } else {
-      mealToLocalStorage = {
-        meals: {
-          [idMeal]: ingredientList,
-        },
-      };
-    }
-
-    setLocalStorage(
-      'inProgressRecipes', { ...inProgressRecipes, ...mealToLocalStorage },
-    );
-  }, [ingredients]);
 
   return (
     ingredients
@@ -51,9 +22,10 @@ export default function ComidaProgress() {
               name={ recipe.strMeal }
               image={ recipe.strMealThumb }
             />
-            <Ingredients
+            <InProgressIngredients
+              id={ recipe.idMeal }
+              inProgressRecipesKey="meals"
               ingredients={ ingredients }
-              displayCheckbox
             />
             <Instructions instructions={ recipe.strInstructions } />
           </div>

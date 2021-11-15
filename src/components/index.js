@@ -5,6 +5,7 @@ export { default as CardTelaPrincipal } from './CardTelaPrincipal';
 export { default as CategoriesButtons } from './CategoriesButtons';
 export { default as ToggleFavoriteRecipeButton } from './ToggleFavoriteRecipeButton';
 export { default as Ingredients } from './Ingredients';
+export { default as InProgressIngredients } from './InProgressIngredients';
 export { default as Instructions } from './Instructions';
 export { default as RecipeHeader } from './RecipeHeader';
 export { default as ShareRecipeButton } from './ShareRecipeButton';
