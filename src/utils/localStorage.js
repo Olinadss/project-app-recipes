@@ -1,3 +1,21 @@
+const initialLocalStorage = [
+  {
+    key: 'inProgressRecipes',
+    value: {
+      meals: {},
+      cocktails: {},
+    },
+  },
+  {
+    key: 'doneRecipes',
+    value: [],
+  },
+  {
+    key: 'favoriteRecipes',
+    value: [],
+  },
+];
+
 function setLocalStorage(key, value) {
   localStorage.setItem(key, JSON.stringify(value));
 }
@@ -11,20 +29,6 @@ function getLocalStorage(key) {
 }
 
 export default function setupLocalStorage() {
-  const initialLocalStorage = [
-    {
-      key: 'inProgressRecipes',
-      value: {
-        meals: {},
-        cocktails: {},
-      },
-    },
-    {
-      key: 'doneRecipes',
-      value: [],
-    },
-  ];
-
   initialLocalStorage.forEach(({ key, value }) => {
     if (!getLocalStorage(key)) setLocalStorage(key, value);
   });

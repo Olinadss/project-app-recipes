@@ -1,29 +1,101 @@
-import React from 'react';
-import { Header, ToggleFavoriteRecipeButton } from '../components';
+import React, { useState } from 'react';
+import { Header } from '../components';
+import ReceitasFavoritasComidas
+  from '../components/ReceitasFavoritasComidas';
+import ReceitasFavoritasBebidas
+  from '../components/ReceitasFavoritasBebidas';
 import useFavoriteRecipes from '../hooks/useFavoriteRecipes';
 
-export default function ReceitasFavoritas() {
-  /*
-    Exemplo de como usar o custom hook useFavoriteRecipes para recuperar
-    as receitas favoritas. Você pode testar acessando os detalhes de
-    algumas receitas, favoritando-as e recarregando esta página.
-  */
+export default function ReceitasFeitas() {
   const { favoriteRecipes, toggleFavoriteStatus } = useFavoriteRecipes();
+  const [isComida, setIsComida] = useState(false);
+  const [isBebida, setIsBebida] = useState(false);
+
+  function renderReceitas() {
+    return favoriteRecipes.map((receita, index) => {
+      if (receita.type === 'comida') {
+        return (<ReceitasFavoritasComidas
+          key={ receita.id }
+          index={ index }
+          receitasFavoritas={ [receita] }
+          toggleFavoriteStatus={ toggleFavoriteStatus }
+        />);
+      }
+      return (<ReceitasFavoritasBebidas
+        key={ receita.id }
+        index={ index }
+        receitasFavoritas={ [receita] }
+        toggleFavoriteStatus={ toggleFavoriteStatus }
+      />);
+    });
+  }
+
+  function renderBebida() {
+    return favoriteRecipes.filter((receita) => receita.type === 'bebida')
+      .map((receita, index) => (<ReceitasFavoritasBebidas
+        key={ receita.id }
+        index={ index }
+        receitasFavoritas={ [receita] }
+        toggleFavoriteStatus={ toggleFavoriteStatus }
+      />));
+  }
+
+  function renderComida() {
+    return favoriteRecipes.filter((receita) => receita.type === 'comida')
+      .map((receita, index) => (
+        <ReceitasFavoritasComidas
+          key={ receita.id }
+          index={ index }
+          receitasFavoritas={ [receita] }
+          toggleFavoriteStatus={ toggleFavoriteStatus }
+        />));
+  }
+
+  function handleClickFilterBebida() {
+    setIsComida(false);
+    setIsBebida(true);
+  }
+
+  function handleClickFilterComida() {
+    setIsComida(true);
+    setIsBebida(false);
+  }
+
+  function handleClickFilterAll() {
+    setIsComida(false);
+    setIsBebida(false);
+  }
 
   return (
     <div>
       <Header title="Receitas Favoritas" search={ false } />
-      {
-        favoriteRecipes.map(({ id, name }, index) => (
-          <div key={ index }>
-            <span>{name}</span>
-            <ToggleFavoriteRecipeButton
-              isFavorite
-              onClick={ () => toggleFavoriteStatus(id) }
-            />
-          </div>
-        ))
-      }
+      <button
+        data-testid="filter-by-all-btn"
+        type="button"
+        onClick={ handleClickFilterAll }
+      >
+        All
+      </button>
+      <button
+        data-testid="filter-by-food-btn"
+        type="button"
+        onClick={ handleClickFilterComida }
+      >
+        Food
+      </button>
+      <button
+        data-testid="filter-by-drink-btn"
+        type="button"
+        onClick={ handleClickFilterBebida }
+      >
+        Drinks
+      </button>
+      {favoriteRecipes && !isBebida && !isComida && renderReceitas() }
+      {favoriteRecipes && isComida
+        && renderComida() }
+      {favoriteRecipes && isBebida
+        && renderBebida() }
+
     </div>
   );
 }
