@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import InProgressIngredients from '../components/InProgressIngredients';
 import RecipeHeader from '../components/RecipeHeader';
 import Instructions from '../components/Instructions';
+import FinishRecipeButton from '../components/FinishRecipeButton';
 import useFetchRecipe from '../hooks/useFetchRecipe';
 
 export default function ComidaProgress() {
   const { idMeal } = useParams();
   const { recipe, ingredients } = useFetchRecipe('meal', idMeal);
+  const [shouldDisableFinishRecipe, setShouldDisableFinishRecipe] = useState(true);
 
   return (
     ingredients
@@ -26,10 +28,11 @@ export default function ComidaProgress() {
               id={ recipe.idMeal }
               inProgressRecipesKey="meals"
               ingredients={ ingredients }
+              setShouldDisableFinishRecipe={ setShouldDisableFinishRecipe }
             />
             <Instructions instructions={ recipe.strInstructions } />
           </div>
-          <button type="button" data-testid="finish-recipe-btn">Finalizar Receita</button>
+          <FinishRecipeButton disabled={ shouldDisableFinishRecipe } />
         </>
       )
       : null
