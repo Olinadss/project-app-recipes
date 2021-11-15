@@ -1,42 +1,23 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import Ingredients from '../components/Ingredients';
+import InProgressIngredients from '../components/InProgressIngredients';
 import RecipeHeader from '../components/RecipeHeader';
 import Instructions from '../components/Instructions';
+import FinishRecipeButton from '../components/FinishRecipeButton';
 import useFetchRecipe from '../hooks/useFetchRecipe';
-import { getLocalStorage, setLocalStorage } from '../utils/localStorage';
+import { getLocalStorage } from '../utils/localStorage';
 
 export default function ComidaProgress() {
   const { idMeal } = useParams();
   const { recipe, ingredients } = useFetchRecipe('meal', idMeal);
+  const [allStepsCompleted, setAllStepsCompleted] = useState(false);
+  const [recipeDone, setRecipeDone] = useState(false);
 
   useEffect(() => {
-    if (!ingredients) return;
+    const doneRecipes = getLocalStorage('doneRecipes');
 
-    const ingredientList = Object.keys(ingredients);
-
-    const inProgressRecipes = getLocalStorage('inProgressRecipes');
-
-    let mealToLocalStorage = null;
-
-    if (inProgressRecipes) {
-      mealToLocalStorage = {
-        meals: {
-          ...inProgressRecipes.meals, [idMeal]: ingredientList,
-        },
-      };
-    } else {
-      mealToLocalStorage = {
-        meals: {
-          [idMeal]: ingredientList,
-        },
-      };
-    }
-
-    setLocalStorage(
-      'inProgressRecipes', { ...inProgressRecipes, ...mealToLocalStorage },
-    );
-  }, [ingredients]);
+    if (doneRecipes.some(({ id }) => id === idMeal)) setRecipeDone(true);
+  }, []);
 
   return (
     ingredients
@@ -51,13 +32,20 @@ export default function ComidaProgress() {
               name={ recipe.strMeal }
               image={ recipe.strMealThumb }
             />
-            <Ingredients
+            <InProgressIngredients
+              id={ recipe.idMeal }
+              inProgressRecipesKey="meals"
               ingredients={ ingredients }
-              displayCheckbox
+              setAllStepsCompleted={ setAllStepsCompleted }
             />
             <Instructions instructions={ recipe.strInstructions } />
           </div>
-          <button type="button" data-testid="finish-recipe-btn">Finalizar Receita</button>
+          <FinishRecipeButton
+            recipe={ recipe }
+            type="comida"
+            allStepsCompleted={ allStepsCompleted }
+            recipeDone={ recipeDone }
+          />
         </>
       )
       : null

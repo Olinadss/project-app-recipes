@@ -5,7 +5,8 @@ export default function RecipeDetailButton({ text, onClick }) {
   const styles = {
     position: 'fixed',
     bottom: '0px',
-    right: '0px',
+    left: '50%',
+    transform: 'translate(-50%, 0)',
   };
 
   return (

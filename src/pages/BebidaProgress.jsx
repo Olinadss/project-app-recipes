@@ -1,42 +1,23 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import Ingredients from '../components/Ingredients';
+import InProgressIngredients from '../components/InProgressIngredients';
 import RecipeHeader from '../components/RecipeHeader';
 import Instructions from '../components/Instructions';
+import FinishRecipeButton from '../components/FinishRecipeButton';
 import useFetchRecipe from '../hooks/useFetchRecipe';
-import { getLocalStorage, setLocalStorage } from '../utils/localStorage';
+import { getLocalStorage } from '../utils/localStorage';
 
 export default function BebidaProgress() {
   const { idCocktails } = useParams();
   const { recipe, ingredients } = useFetchRecipe('drink', idCocktails);
+  const [allStepsCompleted, setAllStepsCompleted] = useState(false);
+  const [recipeDone, setRecipeDone] = useState(false);
 
   useEffect(() => {
-    if (!ingredients) return;
+    const doneRecipes = getLocalStorage('doneRecipes');
 
-    const ingredientList = Object.keys(ingredients);
-
-    const inProgressRecipes = getLocalStorage('inProgressRecipes');
-
-    let drinksToLocalStorage = null;
-
-    if (inProgressRecipes) {
-      drinksToLocalStorage = {
-        cocktails: {
-          ...inProgressRecipes.cocktails, [idCocktails]: ingredientList,
-        },
-      };
-    } else {
-      drinksToLocalStorage = {
-        cocktails: {
-          [idCocktails]: ingredientList,
-        },
-      };
-    }
-
-    setLocalStorage(
-      'inProgressRecipes', { ...inProgressRecipes, ...drinksToLocalStorage },
-    );
-  }, [ingredients]);
+    if (doneRecipes.some(({ id }) => id === idCocktails)) setRecipeDone(true);
+  }, []);
 
   return (
     ingredients
@@ -51,13 +32,20 @@ export default function BebidaProgress() {
               name={ recipe.strDrink }
               image={ recipe.strDrinkThumb }
             />
-            <Ingredients
+            <InProgressIngredients
+              id={ recipe.idDrink }
+              inProgressRecipesKey="cocktails"
               ingredients={ ingredients }
-              displayCheckbox
+              setAllStepsCompleted={ setAllStepsCompleted }
             />
             <Instructions instructions={ recipe.strInstructions } />
           </div>
-          <button type="button" data-testid="finish-recipe-btn">Finalizar Receita</button>
+          <FinishRecipeButton
+            recipe={ recipe }
+            type="bebida"
+            allStepsCompleted={ allStepsCompleted }
+            recipeDone={ recipeDone }
+          />
         </>
       )
       : null

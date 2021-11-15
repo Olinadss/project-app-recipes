@@ -4,6 +4,7 @@ import {
   Ingredients, Instructions, RecipeHeader, Recommendations, RecipeDetailButton,
 } from '../components';
 import useFetchRecipe from '../hooks/useFetchRecipe';
+import '../styles/Detalhes.css';
 
 export default function BebidaDetalhe() {
   const { idCocktails } = useParams();

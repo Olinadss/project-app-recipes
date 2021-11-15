@@ -5,8 +5,11 @@ import Routes from './Routes';
 import { ComidasProvider } from './hooks/useComidas';
 import { BebidasProvider } from './hooks/useBebidas';
 import GlobalStorage from './context/GlobalStorage';
+import setupLocalStorage from './utils/localStorage';
 
 function App() {
+  setupLocalStorage();
+
   return (
     <div className="app">
       <GlobalStorage>

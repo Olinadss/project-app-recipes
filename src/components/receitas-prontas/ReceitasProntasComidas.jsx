@@ -31,12 +31,13 @@ export default function ReceitasProntasComidas({ receitasProntas, index }) {
             dataTestID={ `${index}-horizontal-share-btn` }
           />
           {item.tags.map((tagsName, indexTag) => (
-            <p
+            <span
               data-testid={ `${index}-${item.tags[indexTag]}-horizontal-tag` }
               key={ tagsName }
             >
               {tagsName}
-            </p>
+              {indexTag === item.tags.length - 1 ? '' : ', '}
+            </span>
           ))}
         </>
       ))}
