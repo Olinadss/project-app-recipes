@@ -10,4 +10,24 @@ function getLocalStorage(key) {
   return JSON.parse(value);
 }
 
+export default function setupLocalStorage() {
+  const initialLocalStorage = [
+    {
+      key: 'inProgressRecipes',
+      value: {
+        meals: {},
+        cocktails: {},
+      },
+    },
+    {
+      key: 'doneRecipes',
+      value: [],
+    },
+  ];
+
+  initialLocalStorage.forEach(({ key, value }) => {
+    if (!getLocalStorage(key)) setLocalStorage(key, value);
+  });
+}
+
 export { setLocalStorage, getLocalStorage };

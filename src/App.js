@@ -5,22 +5,10 @@ import Routes from './Routes';
 import { ComidasProvider } from './hooks/useComidas';
 import { BebidasProvider } from './hooks/useBebidas';
 import GlobalStorage from './context/GlobalStorage';
-import { getLocalStorage, setLocalStorage } from './utils/localStorage';
+import setupLocalStorage from './utils/localStorage';
 
 function App() {
-  const initialLocalStorage = [
-    {
-      key: 'inProgressRecipes',
-      value: {
-        meals: {},
-        cocktails: {},
-      },
-    },
-  ];
-
-  initialLocalStorage.forEach(({ key, value }) => {
-    if (!getLocalStorage(key)) setLocalStorage(key, value);
-  });
+  setupLocalStorage();
 
   return (
     <div className="app">
