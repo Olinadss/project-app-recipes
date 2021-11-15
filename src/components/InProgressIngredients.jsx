@@ -58,6 +58,7 @@ export default function InProgressIngredients(
     });
   }, [ingredientsStatus]);
 
+  // Ativa ou desativa o botão de finalizar receita
   useEffect(() => {
     if (Object.values(ingredientsStatus).every((status) => status)) {
       setShouldDisableFinishRecipe(false);
