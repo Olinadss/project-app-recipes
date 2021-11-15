@@ -3,7 +3,7 @@ import { getLocalStorage, setLocalStorage } from '../utils/localStorage';
 import '../styles/InProgressIngredients.css';
 
 export default function InProgressIngredients(
-  { id, ingredients, inProgressRecipesKey, setShouldDisableFinishRecipe },
+  { id, ingredients, inProgressRecipesKey, setAllStepsCompleted },
 ) {
   // Início do setup do estado inicial de acordo com o que existe no localStorage
   const ingredientsNames = Object.keys(ingredients);
@@ -61,9 +61,9 @@ export default function InProgressIngredients(
   // Ativa ou desativa o botão de finalizar receita
   useEffect(() => {
     if (Object.values(ingredientsStatus).every((status) => status)) {
-      setShouldDisableFinishRecipe(false);
+      setAllStepsCompleted(true);
     } else {
-      setShouldDisableFinishRecipe(true);
+      setAllStepsCompleted(false);
     }
   }, [ingredientsStatus]);
 

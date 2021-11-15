@@ -9,6 +9,7 @@ import {
   RecipeDetailButton,
 } from '../components';
 import useFetchRecipe from '../hooks/useFetchRecipe';
+import '../styles/Detalhes.css';
 
 export default function ComidaDetalhe() {
   const { idMeal } = useParams();
